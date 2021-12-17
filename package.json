@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "migrate": "npx prisma migrate dev --name",
-    "migrate:reset": "npx prisma migrate reset",
+    "migrate:reset": "npx prisma migrate reset --force",
     "seed": "npx prisma db seed"
   },
   "eslintConfig": {
