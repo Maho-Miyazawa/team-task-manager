@@ -2,8 +2,6 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function usersSeeding() {
-  await prisma.users.deleteMany({});
-
   await prisma.users.createMany({
     data: [
       {
