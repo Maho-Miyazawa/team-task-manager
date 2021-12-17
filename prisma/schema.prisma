@@ -9,3 +9,43 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model users {
+  id        Int      @id @default(autoincrement())
+  team_id   Int
+  name      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model notes {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  note       String
+  progress   Int
+  priority   Int
+  is_deleted Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model teams {
+  id         Int      @id
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model priorities {
+  id         Int      @id
+  level      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model progress {
+  id         Int      @id
+  level      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
