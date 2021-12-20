@@ -5,10 +5,10 @@ import { useState, useRef } from "react";
 function App() {
   const [searchNameInput, setSearchNameInput] = useState("");
   const [searchNameConfirm, setSearchNameConfirm] = useState("");
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(0);
   const inputEl = useRef(null);
 
-  const GET_NAME = gql`
+  const GET_DATA = gql`
     query  {
       Users(name: "${searchNameConfirm}") {
         id
@@ -26,7 +26,7 @@ function App() {
     }
 `;
 
-  const { loading, error, data } = useQuery(GET_NAME);
+  const { loading, error, data } = useQuery(GET_DATA);
 
   function searchStart() {
     setSearchNameConfirm(searchNameInput);
@@ -48,6 +48,7 @@ function App() {
   }
 
   function userChooseButtonClick(e) {
+    console.log(e.target.value);
     setUserId(e.target.value);
   }
 
@@ -56,7 +57,7 @@ function App() {
 
   return (
     <>
-      {!userId && (
+      {userId === 0 && (
         <div>
           <input
             type="text"
@@ -95,8 +96,21 @@ function App() {
           </div>
         </div>
       )}
-      {userId && (
+      {userId !== 0 && data.Notes.length === 0 && (
+        <p>Notesはありませんでした</p>
+      )}
+      {userId !== 0 && data.Notes.length > 0 && (
         <table>
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>User_id</td>
+              <td>Notes</td>
+              <td>進捗度</td>
+              <td>優先度</td>
+              <td>削除フラグ</td>
+            </tr>
+          </thead>
           <tbody>
             {data.Notes.map((note) => {
               return (
