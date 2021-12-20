@@ -16,6 +16,10 @@ async function usersSeeding() {
         team_id: 4,
         name: "鈴木　次郎",
       },
+      {
+        team_id: 4,
+        name: "木下　啓太",
+      },
     ],
   });
 
