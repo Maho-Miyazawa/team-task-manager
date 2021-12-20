@@ -32,6 +32,15 @@ const resolvers = {
       });
       return usersData;
     },
+    Notes: async (parent, args) => {
+      const notesList = await prisma.notes.findMany({
+        where: {
+          user_id: args.user_id,
+        },
+      });
+
+      return notesList;
+    },
   },
 };
 

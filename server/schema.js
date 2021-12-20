@@ -11,8 +11,20 @@ const typeDefs = gql`
     updated_at: Date
   }
 
+  type Notes {
+    id: Int
+    user_id: Int
+    note: String
+    progress: Int
+    priority: Int
+    is_deleted: Boolean
+    created_at: Date
+    updated_at: Date
+  }
+
   type Query {
     Users(name: String): [Users]
+    Notes(user_id: Int): [Notes]
   }
 `;
 
