@@ -39,7 +39,9 @@ const resolvers = {
         },
       });
 
-      return notesList;
+      if (notesList.length > 0) {
+        return notesList;
+      }
     },
   },
 };

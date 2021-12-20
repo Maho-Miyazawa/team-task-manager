@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 function App() {
   const [searchNameInput, setSearchNameInput] = useState("");
   const [searchNameConfirm, setSearchNameConfirm] = useState("");
-  const [user, setUser] = useState();
+  const [userId, setUserId] = useState();
   const inputEl = useRef(null);
 
   const GET_NAME = gql`
@@ -14,6 +14,14 @@ function App() {
         id
         team_id
         name
+      }
+      Notes(user_id: ${userId}) {
+        id
+        user_id
+        note
+        progress
+        priority
+        is_deleted
       }
     }
 `;
@@ -40,7 +48,7 @@ function App() {
   }
 
   function userChooseButtonClick(e) {
-    setUser(e.target.value);
+    setUserId(e.target.value);
   }
 
   if (loading) return <p>Loading...</p>;
@@ -48,8 +56,7 @@ function App() {
 
   return (
     <>
-      {user && <p>Good{user}</p>}
-      {!user && (
+      {!userId && (
         <div>
           <input
             type="text"
@@ -87,6 +94,24 @@ function App() {
             )}
           </div>
         </div>
+      )}
+      {userId && (
+        <table>
+          <tbody>
+            {data.Notes.map((note) => {
+              return (
+                <tr key={note.id}>
+                  <td>{note.id}</td>
+                  <td>{note.user_id}</td>
+                  <td>{note.note}</td>
+                  <td>{note.progress}</td>
+                  <td>{note.priority}</td>
+                  <td>{note.is_deleted}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       )}
     </>
   );
