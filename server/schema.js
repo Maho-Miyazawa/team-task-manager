@@ -12,7 +12,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    Users: [Users]
+    Users(name: String): [Users]
   }
 `;
 

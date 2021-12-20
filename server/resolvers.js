@@ -22,8 +22,14 @@ const dateScalar = new GraphQLScalarType({
 const resolvers = {
   Date: dateScalar,
   Query: {
-    Users: async () => {
-      const usersData = await prisma.users.findMany({});
+    Users: async (parent, args) => {
+      const usersData = await prisma.users.findMany({
+        where: {
+          name: {
+            contains: args.name,
+          },
+        },
+      });
       return usersData;
     },
   },
