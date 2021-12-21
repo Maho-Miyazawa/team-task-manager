@@ -11,19 +11,19 @@ const typeDefs = gql`
     updated_at: Date
   }
 
-  type NotesInUser {
+  type TasksInUser {
     id: Int
     team_id: Int
     name: String
-    notes: [Note]
+    tasks: [Task]
     created_at: Date
     updated_at: Date
   }
 
-  type Note {
+  type Task {
     id: Int
     user_id: Int
-    note: String
+    task: String
     progress: Int
     priority: Int
     is_deleted: Boolean
@@ -34,8 +34,8 @@ const typeDefs = gql`
 
   type Query {
     AllUsers(name: String): [User]
-    User(id: Int): NotesInUser
-    Notes(user_id: Int): [Note]
+    User(id: Int): TasksInUser
+    Tasks(user_id: Int): [Task]
   }
 `;
 

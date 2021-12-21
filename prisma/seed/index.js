@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const usersSeeding = require("./users");
-const notesSeeding = require("./notes");
+const tasksSeeding = require("./tasks");
 const teamsSeeding = require("./teams");
 const progressSeeding = require("./progress");
 const prioritiesSeeding = require("./priorities");
@@ -15,7 +15,7 @@ usersSeeding()
     await prisma.$disconnect();
   });
 
-notesSeeding()
+tasksSeeding()
   .catch((err) => {
     throw err;
   })

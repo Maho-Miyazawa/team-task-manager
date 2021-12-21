@@ -14,15 +14,15 @@ model users {
   id         Int      @id @default(autoincrement())
   team_id    Int
   name       String
-  notes      notes[]
+  tasks      tasks[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
-model notes {
+model tasks {
   id         Int      @id @default(autoincrement())
   user_id    Int
-  note       String
+  task       String
   progress   Int
   priority   Int
   is_deleted Boolean  @default(false)

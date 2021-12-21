@@ -13,9 +13,9 @@ function App() {
       name
       created_at
       updated_at
-      notes {
+      tasks {
         id
-        note
+        task
         progress
         priority
         is_deleted
@@ -61,12 +61,12 @@ function App() {
           <>
             <div>ID: {userData.id}</div>
             <div>Name: {userData.name}</div>
-            <div>Note:</div>
+            <div>Task:</div>
             <>
-              {userData.notes && userData.notes.length > 0 && (
+              {userData.tasks && userData.tasks.length > 0 && (
                 <>
-                  {userData.notes.map((note) => {
-                    return <div key={note.id}>{note.note}</div>;
+                  {userData.tasks.map((task) => {
+                    return <div key={task.id}>{task.task}</div>;
                   })}
                 </>
               )}

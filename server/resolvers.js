@@ -38,14 +38,14 @@ const resolvers = {
           id: args.id,
         },
         include: {
-          notes: true,
+          tasks: true,
         },
       });
 
       return userData;
     },
-    Notes: async (parent, args) => {
-      const notesList = await prisma.notes.findMany({
+    Tasks: async (parent, args) => {
+      const tasksList = await prisma.tasks.findMany({
         where: {
           user_id: args.user_id,
         },
@@ -54,7 +54,7 @@ const resolvers = {
         },
       });
 
-      return notesList;
+      return tasksList;
     },
   },
 };
