@@ -50,19 +50,18 @@ function App() {
   }
 
   return (
-    <>
-      <div>userId: {userId}</div>
-      <div>Good</div>
+    <div className="wrapper">
       <input type="text" onChange={handleChange} />
-      <button onClick={handleClick}>Click Me!!!</button>
-      <button onClick={check}>Check!!</button>
+      <button onClick={handleClick}>検索</button>
+      <button onClick={check}>データテスト用</button>
       <>
         {userData ? (
-          <>
-            <div>ID: {userData.id}</div>
-            <div>Name: {userData.name}</div>
-            <div>Task:</div>
-            <>
+          <div className="main">
+            <div>
+              <div>ID: {userData.id}</div>
+              <div>Name: {userData.name}</div>
+            </div>
+            <div>
               {userData.tasks && userData.tasks.length > 0 && (
                 <>
                   {userData.tasks.map((task) => {
@@ -70,13 +69,13 @@ function App() {
                   })}
                 </>
               )}
-            </>
-          </>
+            </div>
+          </div>
         ) : (
           <div>存在しません</div>
         )}
       </>
-    </>
+    </div>
   );
 }
 
