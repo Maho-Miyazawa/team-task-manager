@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "migrate": "npx prisma migrate dev --name",
     "migrate:reset": "npx prisma migrate reset --force",
-    "seed": "npx prisma db seed"
+    "seed": "node prisma/seed/index.js"
   },
   "proxy": "http://localhost:4000",
   "eslintConfig": {
@@ -44,9 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "prisma": {
-    "seed": "node prisma/seed/index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
