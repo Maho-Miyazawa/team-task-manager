@@ -1,62 +1,81 @@
 import "./App.css";
-import { useQuery, gql } from "@apollo/client";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
-  const GET_DATA = gql`
-    query {
-      User(id: 1) {
+  const [userId, setUserId] = useState();
+  const [userData, setUserData] = useState({});
+
+  const userDatabaseData = `query {
+    User(id: ${userId}) {
+      id
+      team_id
+      name
+      created_at
+      updated_at
+      notes {
         id
-        team_id
-        name
-        notes {
-          id
-          note
-          progress
-          priority
-          is_deleted
-        }
+        note
+        progress
+        priority
+        is_deleted
       }
+     }
+    }`;
+
+  async function getUser() {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "/graphql",
+        data: { query: userDatabaseData },
+      });
+      setUserData(response.data.data.User);
+    } catch (error) {
+      console.error(error);
     }
-  `;
+  }
 
-  const { loading, error, data } = useQuery(GET_DATA);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  function handleChange(e) {
+    setUserId(e.target.value);
+  }
 
   function handleClick() {
-    console.log(data.User);
+    setUserData({});
+    getUser();
+  }
+
+  function check() {
+    console.log(userData);
   }
 
   return (
     <>
+      <div>userId: {userId}</div>
       <div>Good</div>
+      <input type="text" onChange={handleChange} />
       <button onClick={handleClick}>Click Me!!!</button>
-      <table>
-        <tbody>
-          <tr>
-            <th>ID</th>
-            <>{data.User ? <td>{data.User.id}</td> : <td></td>}</>
-          </tr>
-          <tr>
-            <th>Name</th>
-            <>{data.User ? <td>{data.User.name}</td> : <td></td>}</>
-          </tr>
-          <tr>
-            <th>Notes</th>
+      <button onClick={check}>Check!!</button>
+      <>
+        {userData ? (
+          <>
+            <div>ID: {userData.id}</div>
+            <div>Name: {userData.name}</div>
+            <div>Note:</div>
             <>
-              {data.User && data.User.notes.length > 0 ? (
-                data.User.notes.map((note) => {
-                  return <td key={note.id}>{note.note}</td>;
-                })
-              ) : (
-                <td></td>
+              {userData.notes && userData.notes.length > 0 && (
+                <>
+                  {userData.notes.map((note) => {
+                    return <div key={note.id}>{note.note}</div>;
+                  })}
+                </>
               )}
             </>
-          </tr>
-        </tbody>
-      </table>
+          </>
+        ) : (
+          <div>存在しません</div>
+        )}
+      </>
     </>
   );
 }
