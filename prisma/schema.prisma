@@ -11,9 +11,10 @@ datasource db {
 }
 
 model users {
-  id        Int      @id @default(autoincrement())
-  team_id   Int
-  name      String
+  id         Int      @id @default(autoincrement())
+  team_id    Int
+  name       String
+  notes      notes[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -25,6 +26,7 @@ model notes {
   progress   Int
   priority   Int
   is_deleted Boolean  @default(false)
+  user       users    @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
