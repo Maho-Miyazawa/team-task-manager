@@ -14,6 +14,7 @@ model users {
   id         Int      @id @default(autoincrement())
   team_id    Int
   name       String
+  team       teams    @relation(fields: [team_id], references: [id])
   tasks      tasks[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -36,6 +37,7 @@ model tasks {
 model teams {
   id         Int      @id
   name       String
+  users      users[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

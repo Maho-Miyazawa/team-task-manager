@@ -8,14 +8,6 @@ const progressSeeding = require("./progress");
 const prioritiesSeeding = require("./priorities");
 
 async function seeding() {
-  await usersSeeding()
-    .catch((err) => {
-      throw err;
-    })
-    .finally(async () => {
-      await prisma.$disconnect();
-    });
-
   await teamsSeeding()
     .catch((err) => {
       throw err;
@@ -33,6 +25,14 @@ async function seeding() {
     });
 
   await prioritiesSeeding()
+    .catch((err) => {
+      throw err;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+
+  await usersSeeding()
     .catch((err) => {
       throw err;
     })
