@@ -20,16 +20,17 @@ model users {
 }
 
 model tasks {
-  id         Int       @id @default(autoincrement())
-  user_id    Int
-  task       String
-  progress_id   Int
-  priority   Int
-  is_deleted Boolean   @default(false)
-  user       users     @relation(fields: [user_id], references: [id])
-  progress   progress? @relation(fields: [progress_id], references: [id])
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  id          Int         @id @default(autoincrement())
+  user_id     Int
+  task        String
+  progress_id Int
+  priority_id Int
+  is_deleted  Boolean     @default(false)
+  user        users       @relation(fields: [user_id], references: [id])
+  progress    progress?   @relation(fields: [progress_id], references: [id])
+  priority    priorities? @relation(fields: [priority_id], references: [id])
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
 }
 
 model teams {
@@ -42,6 +43,7 @@ model teams {
 model priorities {
   id         Int      @id
   level      String
+  tasks      tasks[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
