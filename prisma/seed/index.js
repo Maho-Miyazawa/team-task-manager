@@ -7,42 +7,46 @@ const teamsSeeding = require("./teams");
 const progressSeeding = require("./progress");
 const prioritiesSeeding = require("./priorities");
 
-usersSeeding()
-  .catch((err) => {
-    throw err;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+async function seeding() {
+  await usersSeeding()
+    .catch((err) => {
+      throw err;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
 
-tasksSeeding()
-  .catch((err) => {
-    throw err;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  await teamsSeeding()
+    .catch((err) => {
+      throw err;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
 
-teamsSeeding()
-  .catch((err) => {
-    throw err;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  await progressSeeding()
+    .catch((err) => {
+      throw err;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
 
-progressSeeding()
-  .catch((err) => {
-    throw err;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  await prioritiesSeeding()
+    .catch((err) => {
+      throw err;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
 
-prioritiesSeeding()
-  .catch((err) => {
-    throw err;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  await tasksSeeding()
+    .catch((err) => {
+      throw err;
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
+
+seeding();
