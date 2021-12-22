@@ -72,6 +72,20 @@ const resolvers = {
       return tasksList;
     },
   },
+
+  Mutation: {
+    updateProgress: async (parent, args) => {
+      const task = await prisma.tasks.update({
+        where: {
+          id: args.taskId,
+        },
+        data: {
+          progress_id: args.afterProgressNum,
+        },
+      });
+      return task;
+    },
+  },
 };
 
 module.exports = resolvers;

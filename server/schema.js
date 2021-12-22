@@ -48,10 +48,25 @@ const typeDefs = gql`
     updated_at: Date
   }
 
+  type updateTask {
+    id: Int
+    user_id: Int
+    task: String
+    progress_id: Int
+    priority_id: Int
+    is_deleted: Boolean
+    created_at: Date
+    updated_at: Date
+  }
+
   type Query {
     AllUsers(name: String): [User]
     User(id: Int): TasksInUser
     Tasks(user_id: Int): [Task]
+  }
+
+  type Mutation {
+    updateProgress(taskId: Int, afterProgressNum: Int): updateTask
   }
 `;
 
