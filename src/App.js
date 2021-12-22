@@ -55,15 +55,13 @@ function App() {
     console.log(userData);
   }
 
+  function taskRightMove(num) {
+    console.log(num);
+  }
+
   function Task(num) {
     return userData.tasks
-      .filter((task) => {
-        if (task.progress.id === num) {
-          return true;
-        } else {
-          return false;
-        }
-      })
+      .filter((task) => task.progress.id === num)
       .map((task) => {
         function Priority(num) {
           const obj = {
@@ -87,6 +85,9 @@ function App() {
           <div className="task" key={task.id}>
             <div>{task.task}</div>
             <>{Priority(task.priority.id)}</>
+            <button onClick={() => taskRightMove(task.progress.id)}>
+              右に移動
+            </button>
           </div>
         );
       });
