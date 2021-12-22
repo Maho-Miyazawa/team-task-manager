@@ -8,3 +8,36 @@
   flex-wrap: wrap;
   gap: 5rem;
 }
+
+.tasks-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.tasks {
+  border: 0.1rem solid black;
+  width: 14rem;
+}
+
+.task {
+  padding: 1rem;
+  margin: 1rem;
+  border: 0.1rem solid black;
+}
+
+.progress-title {
+  text-align: center;
+  padding: 1rem 0 0 0;
+}
+
+.priority-tag-low {
+  background: lightgreen;
+}
+.priority-tag-middle {
+  background: yellow;
+}
+.priority-tag-high {
+  background: red;
+}

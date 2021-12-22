@@ -16,9 +16,15 @@ function App() {
       tasks {
         id
         task
-        progress
-        priority
         is_deleted
+        progress {
+          id
+          level
+        }
+        priority {
+          id
+          level
+        }
       }
      }
     }`;
@@ -49,6 +55,43 @@ function App() {
     console.log(userData);
   }
 
+  function Task(num) {
+    return userData.tasks
+      .filter((task) => {
+        if (task.progress.id === num) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .map((task) => {
+        function Priority(num) {
+          const obj = {
+            1: "priority-tag-low",
+            2: "priority-tag-middle",
+            3: "priority-tag-high",
+          };
+
+          let className = "";
+          for (const key in obj) {
+            if (Number(num) === Number(key)) {
+              className = obj[key];
+              break;
+            }
+          }
+
+          return <div className={className}>優先度: {task.priority.level}</div>;
+        }
+
+        return (
+          <div className="task" key={task.id}>
+            <div>{task.task}</div>
+            <>{Priority(task.priority.id)}</>
+          </div>
+        );
+      });
+  }
+
   return (
     <div className="wrapper">
       <input type="text" onChange={handleChange} />
@@ -61,12 +104,21 @@ function App() {
               <div>ID: {userData.id}</div>
               <div>Name: {userData.name}</div>
             </div>
-            <div>
+            <div className="tasks-container">
               {userData.tasks && userData.tasks.length > 0 && (
                 <>
-                  {userData.tasks.map((task) => {
-                    return <div key={task.id}>{task.task}</div>;
-                  })}
+                  <div className="tasks">
+                    <div className="progress-title">やること</div>
+                    {Task(1)}
+                  </div>
+                  <div className="tasks">
+                    <div className="progress-title">進行中</div>
+                    {Task(2)}
+                  </div>
+                  <div className="tasks">
+                    <div className="progress-title">完了</div>
+                    {Task(3)}
+                  </div>
                 </>
               )}
             </div>
