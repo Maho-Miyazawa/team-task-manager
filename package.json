@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@prisma/client": "^3.6.0",
+    "@prisma/client": "^3.7.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -48,6 +48,6 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
-    "prisma": "^3.6.0"
+    "prisma": "^3.7.0"
   }
 }

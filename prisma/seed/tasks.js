@@ -8,13 +8,19 @@ async function tasksSeeding() {
         user_id: 1,
         task: "アポをとる",
         progress_id: 2,
-        priority_id: 2,
+        priority_id: 1,
       },
       {
         user_id: 1,
         task: "A社を訪問する",
         progress_id: 1,
         priority_id: 2,
+      },
+      {
+        user_id: 1,
+        task: "C社のフォロー",
+        progress_id: 3,
+        priority_id: 3,
       },
       {
         user_id: 2,
