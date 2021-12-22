@@ -37,8 +37,8 @@ function App() {
         data: { query: userDatabaseData },
       });
       setUserData(response.data.data.User);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -51,12 +51,27 @@ function App() {
     getUser();
   }
 
-  function check() {
-    console.log(userData);
-  }
+  async function taskRightMove(addNum, taskId, progressId) {
+    try {
+      let newProgressId = progressId + addNum;
+      if (newProgressId >= 1 && newProgressId <= 3) {
+        await axios({
+          method: "POST",
+          url: "/graphql",
+          data: {
+            query: `mutation {
+          updateProgress(taskId: ${taskId}, afterProgressNum: ${newProgressId}) {
+            id
+          }
+        }`,
+          },
+        });
 
-  function taskRightMove(num) {
-    console.log(num);
+        getUser();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   function Task(num) {
@@ -85,7 +100,12 @@ function App() {
           <div className="task" key={task.id}>
             <div>{task.task}</div>
             <>{Priority(task.priority.id)}</>
-            <button onClick={() => taskRightMove(task.progress.id)}>
+            <button
+              onClick={() => taskRightMove(-1, task.id, task.progress.id)}
+            >
+              左に移動
+            </button>
+            <button onClick={() => taskRightMove(1, task.id, task.progress.id)}>
               右に移動
             </button>
           </div>
@@ -97,7 +117,6 @@ function App() {
     <div className="wrapper">
       <input type="text" onChange={handleChange} />
       <button onClick={handleClick}>検索</button>
-      <button onClick={check}>データテスト用</button>
       <>
         {userData ? (
           <div className="main">
