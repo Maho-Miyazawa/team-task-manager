@@ -38,7 +38,22 @@ const resolvers = {
           id: args.id,
         },
         include: {
-          tasks: true,
+          tasks: {
+            include: {
+              priority: {
+                select: {
+                  id: true,
+                  level: true,
+                },
+              },
+              progress: {
+                select: {
+                  id: true,
+                  level: true,
+                },
+              },
+            },
+          },
         },
       });
 

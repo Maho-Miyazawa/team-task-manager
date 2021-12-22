@@ -20,6 +20,20 @@ const typeDefs = gql`
     updated_at: Date
   }
 
+  type Progress {
+    id: Int
+    level: String
+    created_at: Date
+    updated_at: Date
+  }
+
+  type Priority {
+    id: Int
+    level: String
+    created_at: Date
+    updated_at: Date
+  }
+
   type Task {
     id: Int
     user_id: Int
@@ -28,6 +42,8 @@ const typeDefs = gql`
     priority_id: Int
     is_deleted: Boolean
     user: User
+    progress: Progress
+    priority: Priority
     created_at: Date
     updated_at: Date
   }
