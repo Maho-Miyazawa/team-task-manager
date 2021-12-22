@@ -23,6 +23,24 @@ async function tasksSeeding() {
         priority_id: 3,
       },
       {
+        user_id: 1,
+        task: "B社のキックオフ",
+        progress_id: 1,
+        priority_id: 1,
+      },
+      {
+        user_id: 1,
+        task: "領収書の提出",
+        progress_id: 1,
+        priority_id: 1,
+      },
+      {
+        user_id: 1,
+        task: "D社と会食",
+        progress_id: 2,
+        priority_id: 3,
+      },
+      {
         user_id: 2,
         task: "備品の発注書作成",
         progress_id: 1,
