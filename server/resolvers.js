@@ -74,6 +74,17 @@ const resolvers = {
   },
 
   Mutation: {
+    createNewTask: async (parent, args) => {
+      const newTask = await prisma.tasks.create({
+        data: {
+          user_id: args.user_id,
+          task: args.task,
+          progress_id: args.progress_id,
+          priority_id: args.priority_id,
+        },
+      });
+      return newTask;
+    },
     updateProgress: async (parent, args) => {
       const task = await prisma.tasks.update({
         where: {
