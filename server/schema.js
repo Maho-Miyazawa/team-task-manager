@@ -24,8 +24,8 @@ const typeDefs = gql`
     id: Int
     user_id: Int
     task: String
-    progress: Int
-    priority: Int
+    progress_id: Int
+    priority_id: Int
     is_deleted: Boolean
     user: User
     created_at: Date
