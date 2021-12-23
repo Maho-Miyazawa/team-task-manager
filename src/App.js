@@ -5,6 +5,9 @@ import axios from "axios";
 function App() {
   const [userId, setUserId] = useState();
   const [userData, setUserData] = useState({});
+  const [newTask, setNewTask] = useState("");
+  const [newProgressId, setNewProgressId] = useState("");
+  const [newPriorityId, setNewPriorityId] = useState("");
 
   const userDatabaseData = `query {
     User(id: ${userId}) {
@@ -51,6 +54,46 @@ function App() {
     getUser();
   }
 
+  function formChange(e, formType) {
+    const obj = {
+      task: (data) => setNewTask(data),
+      progress: (data) => setNewProgressId(data),
+      priority: (data) => setNewPriorityId(data),
+    };
+
+    for (const key in obj) {
+      if (formType === key) {
+        obj[key](e.target.value);
+      }
+    }
+  }
+
+  async function addNewTask(e) {
+    try {
+      e.preventDefault();
+      await axios({
+        method: "POST",
+        url: "/graphql",
+        data: {
+          query: `mutation {
+            createNewTask(
+              user_id: ${userData.id}
+              task: "${newTask}"
+              progress_id: ${newProgressId}
+              priority_id: ${newPriorityId}
+            )
+            {
+              id
+            }
+          }`,
+        },
+      });
+      getUser();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   async function taskRightMove(addNum, taskId, progressId) {
     try {
       let newProgressId = progressId + addNum;
@@ -60,10 +103,10 @@ function App() {
           url: "/graphql",
           data: {
             query: `mutation {
-          updateProgress(taskId: ${taskId}, afterProgressNum: ${newProgressId}) {
-            id
-          }
-        }`,
+              updateProgress(taskId: ${taskId}, afterProgressNum: ${newProgressId}) {
+                id
+              }
+            }`,
           },
         });
 
@@ -117,6 +160,24 @@ function App() {
     <div className="wrapper">
       <input type="text" onChange={handleChange} />
       <button onClick={handleClick}>検索</button>
+      <form>
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => formChange(e, "task")}
+        />
+        <input
+          type="text"
+          value={newProgressId}
+          onChange={(e) => formChange(e, "progress")}
+        />
+        <input
+          type="text"
+          value={newPriorityId}
+          onChange={(e) => formChange(e, "priority")}
+        />
+        <input type="submit" value="作成" onClick={addNewTask} />
+      </form>
       <>
         {userData ? (
           <div className="main">
