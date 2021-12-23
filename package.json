@@ -23,7 +23,8 @@
     "react": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "migrate": "npx prisma migrate dev --name",
+    "migrate": "npx prisma migrate deploy",
+    "migrate:dev": "npx prisma migrate dev --name",
     "migrate:reset": "npx prisma migrate reset --force",
     "seed": "node prisma/seed/index.js"
   },
