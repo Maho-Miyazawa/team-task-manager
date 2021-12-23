@@ -24,7 +24,7 @@ model tasks {
   id          Int         @id @default(autoincrement())
   user_id     Int
   task        String
-  progress_id Int
+  progress_id Int         @default(1)
   priority_id Int
   is_deleted  Boolean     @default(false)
   user        users       @relation(fields: [user_id], references: [id])
