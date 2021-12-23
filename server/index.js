@@ -1,15 +1,28 @@
-const { ApolloServer } = require("apollo-server");
-const { ApolloServerPluginLandingPageDisabled } = require("apollo-server-core");
+const { ApolloServer } = require("apollo-server-express");
+const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
+const express = require("express");
+const http = require("http");
 
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  plugins: [ApolloServerPluginLandingPageDisabled()],
-});
+async function startApolloServer() {
+  const app = express();
+  const httpServer = http.createServer(app);
 
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-  console.log(`🚀  Server is ready at ${url}`);
-});
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
+
+  const PORT = process.env.PORT || 4000;
+
+  await server.start();
+  server.applyMiddleware({ app });
+
+  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+  console.log(`🚀  Server ready at ${PORT}`);
+}
+
+startApolloServer();
