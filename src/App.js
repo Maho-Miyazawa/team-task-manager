@@ -57,6 +57,10 @@ function App() {
     setState(e.target.value);
   }
 
+  function progressChange(e) {
+    setNewPriorityId(e.target.value);
+  }
+
   async function addNewTask(e) {
     try {
       e.preventDefault();
@@ -76,6 +80,8 @@ function App() {
           }`,
         },
       });
+      setNewTask("");
+      setNewPriorityId("");
       getUser();
     } catch (err) {
       console.error(err);
@@ -154,11 +160,11 @@ function App() {
           value={newTask}
           onChange={(e) => formChange(e, setNewTask)}
         />
-        <input
-          type="text"
-          value={newPriorityId}
-          onChange={(e) => formChange(e, setNewPriorityId)}
-        />
+        <select value={newPriorityId} onChange={progressChange}>
+          <option value={1}>低い</option>
+          <option value={2}>普通</option>
+          <option value={3}>高い</option>
+        </select>
         <input type="submit" value="作成" onClick={addNewTask} />
       </form>
       <>
