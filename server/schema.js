@@ -77,12 +77,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createNewTask(
-      user_id: Int
-      task: String
-      progress_id: Int
-      priority_id: Int
-    ): createTask
+    createNewTask(user_id: Int, task: String, priority_id: Int): createTask
     updateProgress(taskId: Int, afterProgressNum: Int): updateTask
   }
 `;
