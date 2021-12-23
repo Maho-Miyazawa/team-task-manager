@@ -6,7 +6,6 @@ function App() {
   const [userId, setUserId] = useState();
   const [userData, setUserData] = useState({});
   const [newTask, setNewTask] = useState("");
-  const [newProgressId, setNewProgressId] = useState("");
   const [newPriorityId, setNewPriorityId] = useState("");
 
   const userDatabaseData = `query {
@@ -54,18 +53,21 @@ function App() {
     getUser();
   }
 
-  function formChange(e, formType) {
-    const obj = {
-      task: (data) => setNewTask(data),
-      progress: (data) => setNewProgressId(data),
-      priority: (data) => setNewPriorityId(data),
-    };
+  // function formChange(e, formType) {
+  //   const obj = {
+  //     task: (data) => setNewTask(data),
+  //     priority: (data) => setNewPriorityId(data),
+  //   };
 
-    for (const key in obj) {
-      if (formType === key) {
-        obj[key](e.target.value);
-      }
-    }
+  //   for (const key in obj) {
+  //     if (formType === key) {
+  //       obj[key](e.target.value);
+  //     }
+  //   }
+  // }
+
+  function formChange(e, setState) {
+    setState(e.target.value);
   }
 
   async function addNewTask(e) {
@@ -79,7 +81,6 @@ function App() {
             createNewTask(
               user_id: ${userData.id}
               task: "${newTask}"
-              progress_id: ${newProgressId}
               priority_id: ${newPriorityId}
             )
             {
@@ -164,17 +165,12 @@ function App() {
         <input
           type="text"
           value={newTask}
-          onChange={(e) => formChange(e, "task")}
-        />
-        <input
-          type="text"
-          value={newProgressId}
-          onChange={(e) => formChange(e, "progress")}
+          onChange={(e) => formChange(e, setNewTask)}
         />
         <input
           type="text"
           value={newPriorityId}
-          onChange={(e) => formChange(e, "priority")}
+          onChange={(e) => formChange(e, setNewPriorityId)}
         />
         <input type="submit" value="作成" onClick={addNewTask} />
       </form>
