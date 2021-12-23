@@ -53,19 +53,6 @@ function App() {
     getUser();
   }
 
-  // function formChange(e, formType) {
-  //   const obj = {
-  //     task: (data) => setNewTask(data),
-  //     priority: (data) => setNewPriorityId(data),
-  //   };
-
-  //   for (const key in obj) {
-  //     if (formType === key) {
-  //       obj[key](e.target.value);
-  //     }
-  //   }
-  // }
-
   function formChange(e, setState) {
     setState(e.target.value);
   }
