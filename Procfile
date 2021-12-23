@@ -1,1 +1,1 @@
-release: yarn migrate && yarn seed
+release: yarn migrate
