@@ -1,9 +1,13 @@
 import "./App.css";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { changeUserId } from "./slices/userIdSlice";
 import axios from "axios";
 
 function App() {
-  const [userId, setUserId] = useState();
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.userId.userId);
+
   const [userData, setUserData] = useState({});
   const [newTask, setNewTask] = useState("");
   const [newPriorityId, setNewPriorityId] = useState("");
@@ -44,8 +48,9 @@ function App() {
     }
   }
 
-  function handleChange(e) {
-    setUserId(e.target.value);
+  function handleChangeUserId(e) {
+    // setUserId(e.target.value);
+    dispatch(changeUserId(e.target.value));
   }
 
   function handleClick() {
@@ -152,7 +157,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <input type="text" onChange={handleChange} />
+      <input type="text" onChange={handleChangeUserId} />
       <button onClick={handleClick}>検索</button>
       <form>
         <input
