@@ -80,16 +80,6 @@ function OneTask(props) {
     <div className="task" key={props.taskId}>
       <div>{props.task}</div>
       <>{Priority(props.priorityId)}</>
-      <button
-        onClick={() => progressChange(-1, props.taskId, props.progressId)}
-      >
-        左に移動
-      </button>
-      <button onClick={() => progressChange(1, props.taskId, props.progressId)}>
-        右に移動
-      </button>
-      <button onClick={taskDeleteButtonClick}>削除</button>
-      <button>編集</button>
     </div>
   );
 }

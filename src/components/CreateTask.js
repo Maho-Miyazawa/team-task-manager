@@ -3,6 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "../slices/userSlice";
 import { setNewTask, setNewPriorityId } from "../slices/taskSlice";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { useState } from "react";
 
 function CreateTask() {
   const dispatch = useDispatch();
@@ -12,6 +17,9 @@ function CreateTask() {
   const newPriorityId = useSelector(
     (state) => state.newPriorityId.newPriorityId
   );
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   async function addNewTask(e) {
     try {
@@ -49,15 +57,32 @@ function CreateTask() {
   }
 
   return (
-    <form>
-      <input type="text" value={newTask} onChange={handleChangeNewTask} />
-      <select value={newPriorityId} onChange={progressChange}>
-        <option value={1}>低い</option>
-        <option value={2}>普通</option>
-        <option value={3}>高い</option>
-      </select>
-      <input type="submit" value="作成" onClick={addNewTask} />
-    </form>
+    <>
+      <>
+        <Button onClick={handleOpen}>タスク作成</Button>
+        <Modal open={open} onClose={handleClose}>
+          <Box className="modal">
+            <Typography>タスク作成</Typography>
+            <Typography>
+              <>
+                <input
+                  type="text"
+                  value={newTask}
+                  onChange={handleChangeNewTask}
+                />
+                <select value={newPriorityId} onChange={progressChange}>
+                  <option value={1}>低い</option>
+                  <option value={2}>普通</option>
+                  <option value={3}>高い</option>
+                </select>
+                <input type="submit" value="作成" onClick={addNewTask} />
+                <button onClick={handleClose}>閉じる</button>
+              </>
+            </Typography>
+          </Box>
+        </Modal>
+      </>
+    </>
   );
 }
 
