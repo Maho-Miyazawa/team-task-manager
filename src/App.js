@@ -1,5 +1,4 @@
 import "./App.css";
-// import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeUserId, fetchUserData } from "./slices/userSlice";
 import { setNewTask, setNewPriorityId } from "./slices/taskSlice";
@@ -55,8 +54,6 @@ function App() {
           }`,
         },
       });
-      // setNewTask("");
-      // setNewPriorityId("");
       dispatch(setNewTask(""));
       dispatch(setNewPriorityId(""));
       getUser();
