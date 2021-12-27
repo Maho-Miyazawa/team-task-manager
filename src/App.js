@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeUserId, fetchUserData } from "./slices/userSlice";
 import { setNewTask, setNewPriorityId } from "./slices/taskSlice";
 import axios from "axios";
+import User from "./components/User";
 
 function App() {
   const dispatch = useDispatch();
@@ -140,10 +141,7 @@ function App() {
       <>
         {userData ? (
           <div className="main">
-            <div>
-              <div>ID: {userData.id}</div>
-              <div>Name: {userData.name}</div>
-            </div>
+            <User />
             <div className="tasks-container">
               {userData.tasks && userData.tasks.length > 0 && (
                 <>
