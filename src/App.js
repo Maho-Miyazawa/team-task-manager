@@ -4,6 +4,7 @@ import { changeUserId, fetchUserData } from "./slices/userSlice";
 import { setNewTask, setNewPriorityId } from "./slices/taskSlice";
 import axios from "axios";
 import User from "./components/User";
+import Tasks from "./components/Tasks";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,68 +64,6 @@ function App() {
     }
   }
 
-  async function taskRightMove(addNum, taskId, progressId) {
-    try {
-      let newProgressId = progressId + addNum;
-      if (newProgressId >= 1 && newProgressId <= 3) {
-        await axios({
-          method: "POST",
-          url: "/graphql",
-          data: {
-            query: `mutation {
-              updateProgress(taskId: ${taskId}, afterProgressNum: ${newProgressId}) {
-                id
-              }
-            }`,
-          },
-        });
-
-        getUser();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  function Task(num) {
-    return userData.tasks
-      .filter((task) => task.progress.id === num)
-      .map((task) => {
-        function Priority(num) {
-          const obj = {
-            1: "priority-tag-low",
-            2: "priority-tag-middle",
-            3: "priority-tag-high",
-          };
-
-          let className = "";
-          for (const key in obj) {
-            if (Number(num) === Number(key)) {
-              className = obj[key];
-              break;
-            }
-          }
-
-          return <div className={className}>優先度: {task.priority.level}</div>;
-        }
-
-        return (
-          <div className="task" key={task.id}>
-            <div>{task.task}</div>
-            <>{Priority(task.priority.id)}</>
-            <button
-              onClick={() => taskRightMove(-1, task.id, task.progress.id)}
-            >
-              左に移動
-            </button>
-            <button onClick={() => taskRightMove(1, task.id, task.progress.id)}>
-              右に移動
-            </button>
-          </div>
-        );
-      });
-  }
-
   return (
     <div className="wrapper">
       <input type="text" onChange={handleChangeUserId} />
@@ -143,22 +82,7 @@ function App() {
           <div className="main">
             <User />
             <div className="tasks-container">
-              {userData.tasks && userData.tasks.length > 0 && (
-                <>
-                  <div className="tasks">
-                    <div className="progress-title">やること</div>
-                    {Task(1)}
-                  </div>
-                  <div className="tasks">
-                    <div className="progress-title">進行中</div>
-                    {Task(2)}
-                  </div>
-                  <div className="tasks">
-                    <div className="progress-title">完了</div>
-                    {Task(3)}
-                  </div>
-                </>
-              )}
+              <Tasks />
             </div>
           </div>
         ) : (
