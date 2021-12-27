@@ -91,6 +91,7 @@ const typeDefs = gql`
     createNewTask(user_id: Int, task: String, priority_id: Int): createTask
     updateProgress(taskId: Int, afterProgressNum: Int): updateTask
     deleteTask(taskId: Int): deleteTask
+    updateTask(taskId: Int, task: String, priority_id: Int): updateTask
   }
 `;
 

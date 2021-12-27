@@ -106,6 +106,18 @@ const resolvers = {
       });
       return task;
     },
+    updateTask: async (parent, args) => {
+      const task = await prisma.tasks.update({
+        where: {
+          id: args.taskId,
+        },
+        data: {
+          task: args.task,
+          priority_id: args.priority_id,
+        },
+      });
+      return task;
+    },
   },
 };
 
