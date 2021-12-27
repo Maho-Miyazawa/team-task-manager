@@ -1,60 +1,27 @@
 import "./App.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeUserId } from "./slices/userIdSlice";
+import { changeUserId, fetchUserData } from "./slices/userSlice";
 import axios from "axios";
 
 function App() {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId.userId);
+  const userData = useSelector((state) => state.userData);
 
-  const [userData, setUserData] = useState({});
   const [newTask, setNewTask] = useState("");
   const [newPriorityId, setNewPriorityId] = useState("");
 
-  const userDatabaseData = `query {
-    User(id: ${userId}) {
-      id
-      team_id
-      name
-      created_at
-      updated_at
-      tasks {
-        id
-        task
-        is_deleted
-        progress {
-          id
-          level
-        }
-        priority {
-          id
-          level
-        }
-      }
-     }
-    }`;
-
-  async function getUser() {
-    try {
-      const response = await axios({
-        method: "POST",
-        url: "/graphql",
-        data: { query: userDatabaseData },
-      });
-      setUserData(response.data.data.User);
-    } catch (err) {
-      console.error(err);
-    }
+  function getUser() {
+    dispatch(fetchUserData(userId));
   }
 
   function handleChangeUserId(e) {
-    // setUserId(e.target.value);
     dispatch(changeUserId(e.target.value));
   }
 
-  function handleClick() {
-    setUserData({});
+  function handleSearchButtonClick() {
+    // setUserData({});
     getUser();
   }
 
@@ -158,7 +125,7 @@ function App() {
   return (
     <div className="wrapper">
       <input type="text" onChange={handleChangeUserId} />
-      <button onClick={handleClick}>検索</button>
+      <button onClick={handleSearchButtonClick}>検索</button>
       <form>
         <input
           type="text"
