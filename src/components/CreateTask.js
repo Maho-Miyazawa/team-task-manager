@@ -58,30 +58,28 @@ function CreateTask() {
 
   return (
     <>
-      <>
-        <Button onClick={handleOpen}>タスク作成</Button>
-        <Modal open={open} onClose={handleClose}>
-          <Box className="modal">
-            <Typography>タスク作成</Typography>
-            <Typography>
-              <>
-                <input
-                  type="text"
-                  value={newTask}
-                  onChange={handleChangeNewTask}
-                />
-                <select value={newPriorityId} onChange={progressChange}>
-                  <option value={1}>低い</option>
-                  <option value={2}>普通</option>
-                  <option value={3}>高い</option>
-                </select>
-                <input type="submit" value="作成" onClick={addNewTask} />
-                <button onClick={handleClose}>閉じる</button>
-              </>
-            </Typography>
-          </Box>
-        </Modal>
-      </>
+      <Button onClick={handleOpen}>タスク作成</Button>
+      <Modal open={open} onClose={handleClose}>
+        <Box className="modal">
+          <Typography>タスク作成</Typography>
+          <Typography>
+            <>
+              <input
+                type="text"
+                value={newTask}
+                onChange={handleChangeNewTask}
+              />
+              <select value={newPriorityId} onChange={progressChange}>
+                <option value={1}>低い</option>
+                <option value={2}>普通</option>
+                <option value={3}>高い</option>
+              </select>
+              <input type="submit" value="作成" onClick={addNewTask} />
+              <button onClick={handleClose}>閉じる</button>
+            </>
+          </Typography>
+        </Box>
+      </Modal>
     </>
   );
 }

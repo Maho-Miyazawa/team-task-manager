@@ -8,5 +8,7 @@ export default configureStore({
     userData: userReducer,
     newTask: taskReducer,
     newPriorityId: taskReducer,
+    currentTask: taskReducer,
+    currentPriorityId: taskReducer,
   },
 });

@@ -5,6 +5,8 @@ export const taskSlice = createSlice({
   initialState: {
     newTask: "",
     newPriorityId: "1",
+    currentTask: "",
+    currentPriorityId: "",
   },
   reducers: {
     setNewTask: (state, action) => {
@@ -13,8 +15,15 @@ export const taskSlice = createSlice({
     setNewPriorityId: (state, action) => {
       state.newPriorityId = action.payload;
     },
+    editTask: (state, action) => {
+      state.currentTask = action.payload;
+    },
+    editPriorityId: (state, action) => {
+      state.currentPriorityId = action.payload;
+    },
   },
 });
 
-export const { setNewTask, setNewPriorityId } = taskSlice.actions;
+export const { setNewTask, setNewPriorityId, editTask, editPriorityId } =
+  taskSlice.actions;
 export default taskSlice.reducer;
