@@ -31,6 +31,33 @@ function OneTask(props) {
     }
   }
 
+  async function taskDeleteButtonClick(e) {
+    try {
+      if (
+        window.confirm(`タスク「${props.task}」を削除します。よろしいですか？`)
+      ) {
+        e.preventDefault();
+        await axios({
+          method: "POST",
+          url: "/graphql",
+          data: {
+            query: `mutation {
+            deleteTask(
+                taskId: ${props.taskId}
+            )
+            {
+              id
+            }
+            }`,
+          },
+        });
+        dispatch(fetchUserData(userId || userData.id));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   function Priority(num) {
     const obj = {
       1: "priority-tag-low",
@@ -61,6 +88,7 @@ function OneTask(props) {
       <button onClick={() => progressChange(1, props.taskId, props.progressId)}>
         右に移動
       </button>
+      <button onClick={taskDeleteButtonClick}>削除</button>
     </div>
   );
 }

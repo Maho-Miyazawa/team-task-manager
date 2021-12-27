@@ -11,6 +11,7 @@ function TaskLine(props) {
         <>
           {userData.tasks
             .filter((task) => task.progress.id === props.progressNum)
+            .filter((task) => !task.is_deleted)
             .map((task) => {
               return (
                 <OneTask

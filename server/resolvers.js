@@ -95,6 +95,17 @@ const resolvers = {
       });
       return task;
     },
+    deleteTask: async (parent, args) => {
+      const task = await prisma.tasks.update({
+        where: {
+          id: args.taskId,
+        },
+        data: {
+          is_deleted: true,
+        },
+      });
+      return task;
+    },
   },
 };
 
