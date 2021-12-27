@@ -1,36 +1,39 @@
 import "./App.css";
-import { useState } from "react";
+// import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeUserId, fetchUserData } from "./slices/userSlice";
+import { setNewTask, setNewPriorityId } from "./slices/taskSlice";
 import axios from "axios";
 
 function App() {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId.userId);
   const userData = useSelector((state) => state.userData);
+  const newTask = useSelector((state) => state.newTask.newTask);
+  const newPriorityId = useSelector(
+    (state) => state.newPriorityId.newPriorityId
+  );
 
-  const [newTask, setNewTask] = useState("");
-  const [newPriorityId, setNewPriorityId] = useState("");
-
+  // TODO 検索入力欄がnullの時のエラー解消
   function getUser() {
-    dispatch(fetchUserData(userId));
+    dispatch(fetchUserData(userId || userData.id));
   }
 
   function handleChangeUserId(e) {
     dispatch(changeUserId(e.target.value));
   }
 
-  function handleSearchButtonClick() {
-    // setUserData({});
+  function handleSearchButtonClick(e) {
+    e.preventDefault();
     getUser();
   }
 
-  function formChange(e, setState) {
-    setState(e.target.value);
+  function handleChangeNewTask(e) {
+    dispatch(setNewTask(e.target.value));
   }
 
   function progressChange(e) {
-    setNewPriorityId(e.target.value);
+    dispatch(setNewPriorityId(e.target.value));
   }
 
   async function addNewTask(e) {
@@ -52,8 +55,10 @@ function App() {
           }`,
         },
       });
-      setNewTask("");
-      setNewPriorityId("");
+      // setNewTask("");
+      // setNewPriorityId("");
+      dispatch(setNewTask(""));
+      dispatch(setNewPriorityId(""));
       getUser();
     } catch (err) {
       console.error(err);
@@ -127,11 +132,7 @@ function App() {
       <input type="text" onChange={handleChangeUserId} />
       <button onClick={handleSearchButtonClick}>検索</button>
       <form>
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => formChange(e, setNewTask)}
-        />
+        <input type="text" value={newTask} onChange={handleChangeNewTask} />
         <select value={newPriorityId} onChange={progressChange}>
           <option value={1}>低い</option>
           <option value={2}>普通</option>

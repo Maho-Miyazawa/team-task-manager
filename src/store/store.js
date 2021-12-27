@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "../slices/userSlice";
+import userReducer from "../slices/userSlice";
+import taskReducer from "../slices/taskSlice";
 
 export default configureStore({
   reducer: {
-    userId: userSlice,
-    userData: userSlice,
+    userId: userReducer,
+    userData: userReducer,
+    newTask: taskReducer,
+    newPriorityId: taskReducer,
   },
 });
