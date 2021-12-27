@@ -34,7 +34,11 @@ export const fetchUserData = createAsyncThunk(
         data: { query: userDatabaseData },
       });
 
-      return response.data.data.User;
+      if (response.data.data.User) {
+        return response.data.data.User;
+      } else {
+        return {};
+      }
     } catch (err) {
       console.error(err);
     }
