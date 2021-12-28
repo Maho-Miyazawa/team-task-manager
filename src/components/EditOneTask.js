@@ -1,63 +1,6 @@
 import "../App.css";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchUserData } from "../slices/userSlice";
-import axios from "axios";
 
 function OneTask(props) {
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userId.userId);
-  const userData = useSelector((state) => state.userData);
-
-  async function progressChange(addNum, taskId, progressId) {
-    try {
-      let newProgressId = progressId + addNum;
-      if (newProgressId >= 1 && newProgressId <= 3) {
-        await axios({
-          method: "POST",
-          url: "/graphql",
-          data: {
-            query: `mutation {
-                  updateProgress(taskId: ${taskId}, afterProgressNum: ${newProgressId}) {
-                    id
-                  }
-                }`,
-          },
-        });
-
-        dispatch(fetchUserData(userId || userData.id));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  async function taskDeleteButtonClick(e) {
-    try {
-      if (
-        window.confirm(`タスク「${props.task}」を削除します。よろしいですか？`)
-      ) {
-        e.preventDefault();
-        await axios({
-          method: "POST",
-          url: "/graphql",
-          data: {
-            query: `mutation {
-            deleteTask(
-                taskId: ${props.taskId}
-            )
-            {
-              id
-            }
-            }`,
-          },
-        });
-        dispatch(fetchUserData(userId || userData.id));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   function Priority(num) {
     const obj = {
       1: "priority-tag-low",

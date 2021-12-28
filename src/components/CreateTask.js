@@ -11,15 +11,15 @@ import { useState } from "react";
 
 function CreateTask() {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userId.userId);
-  const userData = useSelector((state) => state.userData);
-  const newTask = useSelector((state) => state.newTask.newTask);
-  const newPriorityId = useSelector(
-    (state) => state.newPriorityId.newPriorityId
-  );
+  const userId = useSelector((state) => state.user.userId);
+  const userData = useSelector((state) => state.user.userData);
+  const newTask = useSelector((state) => state.task.newTask);
+  const newPriorityId = useSelector((state) => state.task.newPriorityId);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const getUser = () => dispatch(fetchUserData(userId || userData.id));
 
   async function addNewTask(e) {
     try {
@@ -42,7 +42,7 @@ function CreateTask() {
       });
       dispatch(setNewTask(""));
       dispatch(setNewPriorityId("1"));
-      dispatch(fetchUserData(userId || userData.id));
+      getUser();
     } catch (err) {
       console.error(err);
     }

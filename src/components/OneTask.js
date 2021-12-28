@@ -10,15 +10,17 @@ import { useState } from "react";
 
 function OneTask(props) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userId.userId);
-  const userData = useSelector((state) => state.userData);
-  const currentTask = useSelector((state) => state.currentTask.currentTask);
+  const userId = useSelector((state) => state.user.userId);
+  const userData = useSelector((state) => state.user.userData);
+  const currentTask = useSelector((state) => state.task.currentTask);
   const currentPriorityId = useSelector(
-    (state) => state.currentPriorityId.currentPriorityId
+    (state) => state.task.currentPriorityId
   );
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const getUser = () => dispatch(fetchUserData(userId || userData.id));
 
   async function progressChange(addNum, taskId, progressId) {
     try {
@@ -36,7 +38,7 @@ function OneTask(props) {
           },
         });
 
-        dispatch(fetchUserData(userId || userData.id));
+        getUser();
       }
     } catch (err) {
       console.error(err);
@@ -63,7 +65,7 @@ function OneTask(props) {
             }`,
           },
         });
-        dispatch(fetchUserData(userId || userData.id));
+        getUser();
       }
     } catch (err) {
       console.error(err);
@@ -116,7 +118,7 @@ function OneTask(props) {
       });
       dispatch(editTask(""));
       dispatch(editPriorityId(""));
-      dispatch(fetchUserData(userId || userData.id));
+      getUser();
       handleClose();
     } catch (err) {
       console.error(err);

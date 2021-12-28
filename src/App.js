@@ -10,17 +10,12 @@ import Tasks from "./components/Tasks";
 
 function App() {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userId.userId);
-  const userData = useSelector((state) => state.userData);
+  const userId = useSelector((state) => state.user.userId);
+  const userData = useSelector((state) => state.user.userData);
 
   // TODO 検索入力欄がnullの時のエラー解消
-  function getUser() {
-    dispatch(fetchUserData(userId || userData.id));
-  }
-
-  function handleChangeUserId(e) {
-    dispatch(changeUserId(e.target.value));
-  }
+  const getUser = () => dispatch(fetchUserData(userId || userData.id));
+  const handleChangeUserId = (e) => dispatch(changeUserId(e.target.value));
 
   function handleSearchButtonClick(e) {
     e.preventDefault();

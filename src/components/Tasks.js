@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import TaskLine from "./TaskLine";
 
 function Tasks() {
-  const userData = useSelector((state) => state.userData);
+  const userData = useSelector((state) => state.user.userData);
   return (
     <>
       {userData.tasks && userData.tasks.length > 0 && (

@@ -4,11 +4,7 @@ import taskReducer from "../slices/taskSlice";
 
 export default configureStore({
   reducer: {
-    userId: userReducer,
-    userData: userReducer,
-    newTask: taskReducer,
-    newPriorityId: taskReducer,
-    currentTask: taskReducer,
-    currentPriorityId: taskReducer,
+    user: userReducer,
+    task: taskReducer,
   },
 });

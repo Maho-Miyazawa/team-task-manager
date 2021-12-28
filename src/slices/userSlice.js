@@ -58,7 +58,7 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [fetchUserData.fulfilled]: (state, action) => {
-      return action.payload;
+      state.userData = action.payload;
     },
   },
 });
