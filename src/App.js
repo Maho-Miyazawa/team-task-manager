@@ -4,6 +4,7 @@ import { changeUserId, fetchUserData } from "./slices/userSlice";
 import LoginButton from "./components/LoginButton";
 import LogoutButton from "./components/LogoutButton";
 import Profile from "./components/Profile";
+import Signup from "./components/Signup";
 import User from "./components/User";
 import CreateTask from "./components/CreateTask";
 import Tasks from "./components/Tasks";
@@ -15,7 +16,8 @@ function App() {
 
   // TODO 検索入力欄がnullの時のエラー解消
   const getUser = () => dispatch(fetchUserData(userId || userData.id));
-  const handleChangeUserId = (e) => dispatch(changeUserId(e.target.value));
+  const handleChangeUserId = (e) =>
+    dispatch(changeUserId(String(e.target.value)));
 
   function handleSearchButtonClick(e) {
     e.preventDefault();
@@ -27,6 +29,7 @@ function App() {
       <LoginButton />
       <LogoutButton />
       <Profile />
+      <Signup />
       <input type="text" onChange={handleChangeUserId} />
       <button onClick={handleSearchButtonClick}>検索</button>
       <CreateTask />

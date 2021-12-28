@@ -4,7 +4,7 @@ const typeDefs = gql`
   scalar Date
 
   type User {
-    id: Int
+    id: String
     team_id: Int
     name: String
     created_at: Date
@@ -36,7 +36,7 @@ const typeDefs = gql`
 
   type Task {
     id: Int
-    user_id: Int
+    user_id: String
     task: String
     progress_id: Int
     priority_id: Int
@@ -48,31 +48,9 @@ const typeDefs = gql`
     updated_at: Date
   }
 
-  type createTask {
+  type crudTask {
     id: Int
-    user_id: Int
-    task: String
-    progress_id: Int
-    priority_id: Int
-    is_deleted: Boolean
-    created_at: Date
-    updated_at: Date
-  }
-
-  type updateTask {
-    id: Int
-    user_id: Int
-    task: String
-    progress_id: Int
-    priority_id: Int
-    is_deleted: Boolean
-    created_at: Date
-    updated_at: Date
-  }
-
-  type deleteTask {
-    id: Int
-    user_id: Int
+    user_id: String
     task: String
     progress_id: Int
     priority_id: Int
@@ -83,15 +61,15 @@ const typeDefs = gql`
 
   type Query {
     AllUsers(name: String): [User]
-    User(id: Int): TasksInUser
-    Tasks(user_id: Int): [Task]
+    User(id: String): TasksInUser
+    Tasks(user_id: String): [Task]
   }
 
   type Mutation {
-    createNewTask(user_id: Int, task: String, priority_id: Int): createTask
-    updateProgress(taskId: Int, afterProgressNum: Int): updateTask
-    deleteTask(taskId: Int): deleteTask
-    updateTask(taskId: Int, task: String, priority_id: Int): updateTask
+    createNewTask(user_id: String, task: String, priority_id: Int): crudTask
+    updateProgress(taskId: Int, afterProgressNum: Int): crudTask
+    deleteTask(taskId: Int): crudTask
+    updateTask(taskId: Int, task: String, priority_id: Int): crudTask
   }
 `;
 

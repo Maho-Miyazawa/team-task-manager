@@ -18,7 +18,11 @@ function OneTask(props) {
   );
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(editTask(""));
+    dispatch(editPriorityId("1"));
+  };
 
   const getUser = () => dispatch(fetchUserData(userId || userData.id));
 
@@ -116,8 +120,6 @@ function OneTask(props) {
            }`,
         },
       });
-      dispatch(editTask(""));
-      dispatch(editPriorityId(""));
       getUser();
       handleClose();
     } catch (err) {
@@ -127,8 +129,6 @@ function OneTask(props) {
 
   function updateCancel(e) {
     e.preventDefault();
-    dispatch(editTask(""));
-    dispatch(editPriorityId(""));
     handleClose();
   }
 

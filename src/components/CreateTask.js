@@ -17,7 +17,11 @@ function CreateTask() {
   const newPriorityId = useSelector((state) => state.task.newPriorityId);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(setNewTask(""));
+    dispatch(setNewPriorityId("1"));
+  };
 
   const getUser = () => dispatch(fetchUserData(userId || userData.id));
 
@@ -30,7 +34,7 @@ function CreateTask() {
         data: {
           query: `mutation {
                 createNewTask(
-                  user_id: ${userData.id}
+                  user_id: "${userData.id}"
                   task: "${newTask}"
                   priority_id: ${newPriorityId}
                 )

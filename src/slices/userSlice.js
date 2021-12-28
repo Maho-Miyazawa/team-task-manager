@@ -5,7 +5,7 @@ export const fetchUserData = createAsyncThunk(
   "userData/fetchUser",
   async (userId) => {
     const userDatabaseData = `query {
-      User(id: ${userId}) {
+      User(id: "${userId}") {
         id
         team_id
         name
