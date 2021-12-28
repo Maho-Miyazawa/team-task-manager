@@ -1,6 +1,9 @@
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { changeUserId, fetchUserData } from "./slices/userSlice";
+import LoginButton from "./components/LoginButton";
+import LogoutButton from "./components/LogoutButton";
+import Profile from "./components/Profile";
 import User from "./components/User";
 import CreateTask from "./components/CreateTask";
 import Tasks from "./components/Tasks";
@@ -26,6 +29,9 @@ function App() {
 
   return (
     <div className="wrapper">
+      <LoginButton />
+      <LogoutButton />
+      <Profile />
       <input type="text" onChange={handleChangeUserId} />
       <button onClick={handleSearchButtonClick}>検索</button>
       <CreateTask />
