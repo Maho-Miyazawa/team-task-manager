@@ -11,6 +11,15 @@ const typeDefs = gql`
     updated_at: Date
   }
 
+  type TeamName {
+    name: String
+  }
+
+  type Profile {
+    name: String
+    team: TeamName
+  }
+
   type TasksInUser {
     id: Int
     team_id: Int
@@ -63,7 +72,7 @@ const typeDefs = gql`
     AllUsers(name: String): [User]
     User(id: String): TasksInUser
     Tasks(user_id: String): [Task]
-    CollateUserId(id: String): Boolean
+    CollateUserId(id: String): Profile
   }
 
   type Mutation {
@@ -71,7 +80,7 @@ const typeDefs = gql`
     updateProgress(taskId: Int, afterProgressNum: Int): crudTask
     deleteTask(taskId: Int): crudTask
     updateTask(taskId: Int, task: String, priority_id: Int): crudTask
-    createNewUser(id: String, teamId: Int, name: String): User
+    createNewUser(id: String, teamId: Int, name: String): Profile
   }
 `;
 
