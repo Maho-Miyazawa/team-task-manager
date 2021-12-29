@@ -1,6 +1,11 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { inputUserName, inputTeam } from "../slices/signupSlice";
+import {
+  inputUserName,
+  inputTeam,
+  setProfileUserName,
+  setProfileTeamName,
+} from "../slices/signupSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,12 +37,21 @@ function Signup() {
         url: "/graphql",
         data: {
           query: `query {
-                            CollateUserId(id: "${user.sub}")
-                          }`,
+                    CollateUserId(id: "${user.sub}") {
+                        name
+                        team {
+                            name
+                        }
+                    }
+                }`,
         },
       });
 
-      if (collation.data.data.CollateUserId) {
+      let collationData = collation.data.data.CollateUserId;
+
+      if (collationData) {
+        dispatch(setProfileUserName(collationData.name));
+        dispatch(setProfileTeamName(collationData.team.name));
         setIsCollationResult(true);
         navigate("/my-page");
       } else {
