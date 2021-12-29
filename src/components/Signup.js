@@ -1,32 +1,30 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { inputUserName, inputTeam } from "../slices/signupSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 function Signup() {
+  const [collationResult, setCollationResult] = useState(false);
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.signup.userName);
   const team = useSelector((state) => state.signup.team);
   const { user } = useAuth0();
 
-  function createUserData() {
-    console.log("Sign UP!!!!");
-  }
-
-  function handleChangeUserName(e) {
+  const handleChangeUserName = (e) => {
     e.preventDefault();
     dispatch(inputUserName(e.target.value));
-  }
+  };
 
-  function handleChangeTeam(e) {
+  const handleChangeTeam = (e) => {
     e.preventDefault();
     dispatch(inputTeam(e.target.value));
-  }
+  };
 
-  async function collateUserId(e) {
+  const collateUserId = async (e) => {
     try {
       e.preventDefault();
-      const collationResult = await axios({
+      const collation = await axios({
         method: "POST",
         url: "/graphql",
         data: {
@@ -36,15 +34,43 @@ function Signup() {
         },
       });
 
-      if (collationResult.data.data.CollateUserId) {
-        console.log("登録されています!");
+      if (collation.data.data.CollateUserId) {
+        setCollationResult(true);
       } else {
-        console.log("登録されていません!");
+        setCollationResult(false);
       }
     } catch (err) {
       console.error(err);
     }
-  }
+  };
+
+  const createUserData = async (e) => {
+    e.preventDefault();
+    try {
+      if (!collationResult) {
+        await axios({
+          method: "POST",
+          url: "/graphql",
+          data: {
+            query: `mutation {
+                        createNewUser(
+                            id: "${user.sub}"
+                            teamId: ${team}
+                            name: "${userName}"
+                        )
+                        {
+                        id
+                        }
+                    }`,
+          },
+        });
+        dispatch(inputUserName(""));
+        dispatch(inputTeam(1));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
