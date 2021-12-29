@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 1rem 0 0 1rem;
+  /* padding: 1rem 0 0 1rem; */
 }
 
 .main {
@@ -7,6 +7,16 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5rem;
+}
+
+.header {
+  background: lightblue;
+  padding: 1.5rem 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .tasks-container {
