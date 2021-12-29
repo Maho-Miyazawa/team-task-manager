@@ -130,6 +130,16 @@ const resolvers = {
       });
       return task;
     },
+    createNewUser: async (parent, args) => {
+      const newUser = await prisma.users.create({
+        data: {
+          id: args.id,
+          team_id: args.teamId,
+          name: args.name,
+        },
+      });
+      return newUser;
+    },
   },
 };
 

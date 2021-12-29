@@ -71,6 +71,7 @@ const typeDefs = gql`
     updateProgress(taskId: Int, afterProgressNum: Int): crudTask
     deleteTask(taskId: Int): crudTask
     updateTask(taskId: Int, task: String, priority_id: Int): crudTask
+    createNewUser(id: String, teamId: Int, name: String): User
   }
 `;
 
