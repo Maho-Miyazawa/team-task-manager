@@ -71,6 +71,18 @@ const resolvers = {
 
       return tasksList;
     },
+    CollateUserId: async (parent, args) => {
+      const user = await prisma.users.findUnique({
+        where: {
+          id: args.id,
+        },
+      });
+      if (user) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 
   Mutation: {

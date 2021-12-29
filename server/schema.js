@@ -63,6 +63,7 @@ const typeDefs = gql`
     AllUsers(name: String): [User]
     User(id: String): TasksInUser
     Tasks(user_id: String): [Task]
+    CollateUserId(id: String): Boolean
   }
 
   type Mutation {
