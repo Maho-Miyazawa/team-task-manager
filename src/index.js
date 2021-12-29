@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store/store";
 import { Provider } from "react-redux";
 
-const redirectUri = `${window.location.origin}/my-page`;
+const redirectUri = `${window.location.origin}/signup`;
 
 ReactDOM.render(
   <React.StrictMode>
