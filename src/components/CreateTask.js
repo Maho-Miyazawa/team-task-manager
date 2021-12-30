@@ -13,7 +13,7 @@ function CreateTask() {
   const dispatch = useDispatch();
   const newTask = useSelector((state) => state.task.newTask);
   const newPriorityId = useSelector((state) => state.task.newPriorityId);
-  const profileUserId = useSelector((state) => state.signup.profileUserId);
+  const profileUserId = useSelector((state) => state.user.profileUserId);
   const [open, setOpen] = useState(false);
   const modalOpen = () => setOpen(true);
   const modalClose = () => {

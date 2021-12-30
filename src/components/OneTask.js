@@ -10,7 +10,7 @@ import { useState } from "react";
 
 function OneTask(props) {
   const dispatch = useDispatch();
-  const profileUserId = useSelector((state) => state.signup.profileUserId);
+  const profileUserId = useSelector((state) => state.user.profileUserId);
   const currentTask = useSelector((state) => state.task.currentTask);
   const currentPriorityId = useSelector(
     (state) => state.task.currentPriorityId

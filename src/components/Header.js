@@ -4,15 +4,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 import {
   setProfileUserName,
+  setProfileTeamId,
   setProfileTeamName,
   setProfileUserId,
-} from "../slices/signupSlice";
+} from "../slices/userSlice";
 import axios from "axios";
 
 function Header() {
   const dispatch = useDispatch();
-  const profileUserName = useSelector((state) => state.signup.profileUserName);
-  const profileTeamName = useSelector((state) => state.signup.profileTeamName);
+  const profileUserName = useSelector((state) => state.user.profileUserName);
+  const profileTeamName = useSelector((state) => state.user.profileTeamName);
   const { user } = useAuth0();
 
   const setProfileData = async () => {
@@ -23,6 +24,7 @@ function Header() {
         data: {
           query: `query {
                     CollateUserId(id: "${user.sub}") {
+                        team_id
                         name
                         team {
                             name
@@ -35,6 +37,7 @@ function Header() {
       let collationData = collation.data.data.CollateUserId;
 
       dispatch(setProfileUserId(user.sub));
+      dispatch(setProfileTeamId(Number(collationData.team_id)));
       dispatch(setProfileUserName(collationData.name));
       dispatch(setProfileTeamName(collationData.team.name));
     } catch (err) {

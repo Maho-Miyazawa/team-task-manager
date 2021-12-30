@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  inputUserName,
-  inputTeam,
-  setProfileUserName,
-  setProfileTeamName,
-} from "../slices/signupSlice";
+import { inputUserName, inputTeam } from "../slices/signupSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -50,8 +45,6 @@ function Signup() {
       let collationData = collation.data.data.CollateUserId;
 
       if (collationData) {
-        dispatch(setProfileUserName(collationData.name));
-        dispatch(setProfileTeamName(collationData.team.name));
         setIsCollationResult(true);
         navigate("/my-page");
       } else {
