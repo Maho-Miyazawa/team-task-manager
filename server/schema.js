@@ -11,13 +11,20 @@ const typeDefs = gql`
     updated_at: Date
   }
 
-  type TeamName {
+  type Team {
+    id: String
     name: String
+    created_at: Date
+    updated_at: Date
   }
 
   type Profile {
+    id: String
+    team_id: Int
     name: String
-    team: TeamName
+    created_at: Date
+    updated_at: Date
+    team: Team
   }
 
   type TasksInUser {
@@ -57,6 +64,15 @@ const typeDefs = gql`
     updated_at: Date
   }
 
+  type Member {
+    id: String
+    team_id: Int
+    name: String
+    created_at: Date
+    updated_at: Date
+    team: Team
+  }
+
   type crudTask {
     id: Int
     user_id: String
@@ -73,6 +89,7 @@ const typeDefs = gql`
     User(id: String): TasksInUser
     Tasks(user_id: String): [Task]
     CollateUserId(id: String): Profile
+    Member(teamId: Int): [Member]
   }
 
   type Mutation {

@@ -76,16 +76,22 @@ const resolvers = {
         where: {
           id: args.id,
         },
-        select: {
-          name: true,
-          team: {
-            select: {
-              name: true,
-            },
-          },
+        include: {
+          team: true,
         },
       });
       return profile;
+    },
+    Member: async (parent, args) => {
+      const member = await prisma.users.findMany({
+        where: {
+          team_id: args.teamId,
+        },
+        include: {
+          team: true,
+        },
+      });
+      return member;
     },
   },
 
