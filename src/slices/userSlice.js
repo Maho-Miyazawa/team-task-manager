@@ -48,14 +48,9 @@ export const fetchUserData = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    userId: "",
     userData: {},
   },
-  reducers: {
-    changeUserId: (state, action) => {
-      state.userId = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: {
     [fetchUserData.fulfilled]: (state, action) => {
       state.userData = action.payload;
@@ -63,5 +58,4 @@ export const userSlice = createSlice({
   },
 });
 
-export const { changeUserId } = userSlice.actions;
 export default userSlice.reducer;
