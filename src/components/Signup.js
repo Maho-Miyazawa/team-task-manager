@@ -94,7 +94,7 @@ function Signup() {
 
   useEffect(() => {
     if (user) {
-      setProfileData();
+      collateUserId();
     }
   });
 

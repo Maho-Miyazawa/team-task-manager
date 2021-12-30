@@ -5,9 +5,7 @@ function MyPage() {
   return (
     <div>
       <Header />
-      <div className="tasks-container">
-        <Tasks />
-      </div>
+      <Tasks />
     </div>
   );
 }

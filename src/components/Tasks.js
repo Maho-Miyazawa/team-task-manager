@@ -17,9 +17,11 @@ function Tasks() {
   return (
     <>
       <CreateTask />
-      <TaskLine progressNum={1} taskLineContents="やること" />
-      <TaskLine progressNum={2} taskLineContents="進行中" />
-      <TaskLine progressNum={3} taskLineContents="完了" />
+      <div className="tasks-container">
+        <TaskLine progressNum={1} taskLineContents="やること" />
+        <TaskLine progressNum={2} taskLineContents="進行中" />
+        <TaskLine progressNum={3} taskLineContents="完了" />
+      </div>
     </>
   );
 }
