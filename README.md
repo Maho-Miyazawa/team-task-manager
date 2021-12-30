@@ -62,9 +62,8 @@ cd team-task-manager
 yarn install
 
 # npmの場合
-# (yarn.lockファイルは削除)
 npm i
-rm yarn.lock
+rm yarn.lock  # yarn.lockファイルは削除
 ```
 
 <br>
@@ -160,11 +159,13 @@ npm run react # Reactを起動
 ## 使用した技術
 
 - [React](https://ja.reactjs.org/) - ユーザインターフェース構築のための JavaScript ライブラリ
+- [Node.js](https://nodejs.org/ja/) - Chrome の V8 JavaScript エンジン で動作する JavaScript 環境
 - [Express](https://expressjs.com/ja/) - Node.js のための高速で、革新的な、最小限の Web フレームワーク
 - [apollo-server-express](https://www.apollographql.com/docs/apollo-server/integrations/middleware/#apollo-server-express) - The Apollo Server package for Express, the most popular Node.js web framework
 - [GraphQL](https://graphql.org/) - A query language for your API
 - [Prisma](https://www.prisma.io/) - Next-generation Node.js and TypeScript ORM
 - [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
+- [MUI](https://mui.com/) - The React UI library you always wanted
 - [Auth0](https://auth0.com/jp) - 誰でも簡単に導入できる認証・認可プラットフォーム
 - [Heroku](https://jp.heroku.com/) - アプリケーションの開発から実行、運用までのすべてをクラウドで完結できる PaaS（サービスとしてのプラットフォーム）
 
