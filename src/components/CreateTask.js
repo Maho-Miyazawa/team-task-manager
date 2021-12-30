@@ -11,19 +11,18 @@ import { useState } from "react";
 
 function CreateTask() {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.userId);
-  const userData = useSelector((state) => state.user.userData);
   const newTask = useSelector((state) => state.task.newTask);
   const newPriorityId = useSelector((state) => state.task.newPriorityId);
+  const profileUserId = useSelector((state) => state.signup.profileUserId);
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
+  const modalOpen = () => setOpen(true);
+  const modalClose = () => {
     setOpen(false);
     dispatch(setNewTask(""));
     dispatch(setNewPriorityId("1"));
   };
 
-  const getUser = () => dispatch(fetchUserData(userId || userData.id));
+  const getUser = () => dispatch(fetchUserData(profileUserId));
 
   async function addNewTask(e) {
     try {
@@ -34,7 +33,7 @@ function CreateTask() {
         data: {
           query: `mutation {
                 createNewTask(
-                  user_id: "${userData.id}"
+                  user_id: "${profileUserId}"
                   task: "${newTask}"
                   priority_id: ${newPriorityId}
                 )
@@ -62,8 +61,8 @@ function CreateTask() {
 
   return (
     <>
-      <Button onClick={handleOpen}>タスク作成</Button>
-      <Modal open={open} onClose={handleClose}>
+      <Button onClick={modalOpen}>タスク作成</Button>
+      <Modal open={open} onClose={modalClose}>
         <Box className="modal">
           <Typography>タスク作成</Typography>
           <Typography>
@@ -79,7 +78,7 @@ function CreateTask() {
                 <option value={3}>高い</option>
               </select>
               <input type="submit" value="作成" onClick={addNewTask} />
-              <button onClick={handleClose}>閉じる</button>
+              <button onClick={modalClose}>閉じる</button>
             </>
           </Typography>
         </Box>
