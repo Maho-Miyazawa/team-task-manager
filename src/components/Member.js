@@ -2,13 +2,20 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { getMemberList } from "../slices/memberSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  setIsMyTask,
+  setUserIdForTasks,
+  setUserNmeForTasks,
+} from "../slices/taskSlice";
 import Header from "./Header";
 
 function Member() {
   const dispatch = useDispatch();
+  const profileUserId = useSelector((state) => state.user.profileUserId);
   const profileTeamId = useSelector((state) => state.user.profileTeamId);
   const memberList = useSelector((state) => state.member.teamMember);
+  const navigate = useNavigate();
 
   const getMember = async () => {
     try {
@@ -38,9 +45,16 @@ function Member() {
     getMember();
   });
 
-  const selectMember = (e) => {
+  const selectMember = (e, memberId, memberName) => {
     e.preventDefault();
-    console.log("選択");
+    if (profileUserId === memberId) {
+      dispatch(setIsMyTask(true));
+    } else {
+      dispatch(setIsMyTask(false));
+    }
+    dispatch(setUserIdForTasks(memberId));
+    dispatch(setUserNmeForTasks(memberName));
+    navigate("/member/tasks");
   };
 
   return (
@@ -63,7 +77,11 @@ function Member() {
                 <td>{member.name}</td>
                 <td>{member.team.name}</td>
                 <td>
-                  <button onClick={selectMember}>選択</button>
+                  <button
+                    onClick={(e) => selectMember(e, member.id, member.name)}
+                  >
+                    選択
+                  </button>
                 </td>
               </tr>
             );
