@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import MyPage from "./components/MyPage";
 import Home from "./components/Home";
 import Member from "./components/Member";
+import MemberTasks from "./components/MemberTasks";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="signup" element={<Signup />} />
         <Route path="my-page" element={<MyPage />} />
         <Route path="member" element={<Member />} />
-        {/* <Route path="member/tasks" element={<MemberTasks />} /> */}
+        <Route path="member/tasks" element={<MemberTasks />} />
       </Routes>
     </div>
   );
