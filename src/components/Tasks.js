@@ -1,18 +1,25 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "../App.css";
-import { useSelector } from "react-redux";
+import CreateTask from "./CreateTask";
 import TaskLine from "./TaskLine";
+import { fetchUserData } from "../slices/userSlice";
 
 function Tasks() {
-  const userData = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch();
+  const profileUserId = useSelector((state) => state.signup.profileUserId);
+  const getUser = () => dispatch(fetchUserData(profileUserId));
+
+  useEffect(() => {
+    getUser();
+  });
+
   return (
     <>
-      {userData.tasks && userData.tasks.length > 0 && (
-        <>
-          <TaskLine progressNum={1} taskLineContents="やること" />
-          <TaskLine progressNum={2} taskLineContents="進行中" />
-          <TaskLine progressNum={3} taskLineContents="完了" />
-        </>
-      )}
+      <CreateTask />
+      <TaskLine progressNum={1} taskLineContents="やること" />
+      <TaskLine progressNum={2} taskLineContents="進行中" />
+      <TaskLine progressNum={3} taskLineContents="完了" />
     </>
   );
 }

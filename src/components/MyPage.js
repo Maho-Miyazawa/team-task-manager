@@ -1,10 +1,13 @@
 import Header from "./Header";
+import Tasks from "./Tasks";
 
 function MyPage() {
   return (
     <div>
       <Header />
-      <h1>My Page</h1>
+      <div className="tasks-container">
+        <Tasks />
+      </div>
     </div>
   );
 }

@@ -10,21 +10,20 @@ import { useState } from "react";
 
 function OneTask(props) {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.userId);
-  const userData = useSelector((state) => state.user.userData);
+  const profileUserId = useSelector((state) => state.signup.profileUserId);
   const currentTask = useSelector((state) => state.task.currentTask);
   const currentPriorityId = useSelector(
     (state) => state.task.currentPriorityId
   );
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
+  const modalOpen = () => setOpen(true);
+  const modalClose = () => {
     setOpen(false);
     dispatch(editTask(""));
     dispatch(editPriorityId("1"));
   };
 
-  const getUser = () => dispatch(fetchUserData(userId || userData.id));
+  const getUser = () => dispatch(fetchUserData(profileUserId));
 
   async function progressChange(addNum, taskId, progressId) {
     try {
@@ -94,12 +93,12 @@ function OneTask(props) {
     return <div className={className}>優先度: {props.priorityLevel}</div>;
   }
 
-  function editButtonClick(e) {
+  const editButtonClick = (e) => {
     e.preventDefault();
     dispatch(editTask(props.task));
     dispatch(editPriorityId(props.priorityId));
-    handleOpen();
-  }
+    modalOpen();
+  };
 
   async function updateTaskButtonClick(e) {
     try {
@@ -121,26 +120,26 @@ function OneTask(props) {
         },
       });
       getUser();
-      handleClose();
+      modalClose();
     } catch (err) {
       console.error(err);
     }
   }
 
-  function updateCancel(e) {
+  const updateCancel = (e) => {
     e.preventDefault();
-    handleClose();
-  }
+    modalClose();
+  };
 
-  function handleEditTask(e) {
+  const handleEditTask = (e) => {
     e.preventDefault();
     dispatch(editTask(e.target.value));
-  }
+  };
 
-  function handleEditPriority(e) {
+  const handleEditPriority = (e) => {
     e.preventDefault();
     dispatch(editPriorityId(Number(e.target.value)));
-  }
+  };
 
   return (
     <>
@@ -161,7 +160,7 @@ function OneTask(props) {
         <button onClick={taskDeleteButtonClick}>削除</button>
       </div>
       <>
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={modalClose}>
           <Box className="modal">
             <Typography>タスク編集</Typography>
             <>
@@ -181,7 +180,7 @@ function OneTask(props) {
                 value="更新"
                 onClick={updateTaskButtonClick}
               />
-              <button onClick={handleClose}>閉じる</button>
+              <button onClick={modalClose}>閉じる</button>
             </>
           </Box>
         </Modal>
