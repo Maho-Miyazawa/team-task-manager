@@ -2,7 +2,11 @@ import LogoutButton from "./LogoutButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
-import { setProfileUserName, setProfileTeamName } from "../slices/signupSlice";
+import {
+  setProfileUserName,
+  setProfileTeamName,
+  setProfileUserId,
+} from "../slices/signupSlice";
 import axios from "axios";
 
 function Header() {
@@ -11,7 +15,7 @@ function Header() {
   const profileTeamName = useSelector((state) => state.signup.profileTeamName);
   const { user } = useAuth0();
 
-  const collateUserId = async () => {
+  const setProfileData = async () => {
     try {
       const collation = await axios({
         method: "POST",
@@ -30,6 +34,7 @@ function Header() {
 
       let collationData = collation.data.data.CollateUserId;
 
+      dispatch(setProfileUserId(user.sub));
       dispatch(setProfileUserName(collationData.name));
       dispatch(setProfileTeamName(collationData.team.name));
     } catch (err) {
@@ -38,7 +43,9 @@ function Header() {
   };
 
   useEffect(() => {
-    collateUserId();
+    if (user) {
+      setProfileData();
+    }
   });
 
   return (
