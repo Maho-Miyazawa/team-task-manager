@@ -49,13 +49,37 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     userData: {},
+    profileUserId: "",
+    profileTeamId: "",
+    profileUserName: "",
+    profileTeamName: "",
   },
-  reducers: {},
+  reducers: {
+    setProfileUserId: (state, action) => {
+      state.profileUserId = action.payload;
+    },
+    setProfileTeamId: (state, action) => {
+      state.profileTeamId = action.payload;
+    },
+    setProfileUserName: (state, action) => {
+      state.profileUserName = action.payload;
+    },
+    setProfileTeamName: (state, action) => {
+      state.profileTeamName = action.payload;
+    },
+  },
   extraReducers: {
     [fetchUserData.fulfilled]: (state, action) => {
       state.userData = action.payload;
     },
   },
 });
+
+export const {
+  setProfileUserId,
+  setProfileTeamId,
+  setProfileUserName,
+  setProfileTeamName,
+} = userSlice.actions;
 
 export default userSlice.reducer;
