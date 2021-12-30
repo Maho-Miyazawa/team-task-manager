@@ -2,12 +2,12 @@
   /* padding: 1rem 0 0 1rem; */
 }
 
-.main {
+/* .main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5rem;
-}
+} */
 
 .header {
   background: lightblue;
@@ -23,12 +23,15 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 3rem;
+  justify-content: center;
+  gap: 5rem;
+  padding: 2rem 0;
 }
 
 .tasks {
   border: 0.1rem solid black;
   width: 14rem;
+  height: 35rem;
 }
 
 .task {
