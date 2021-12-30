@@ -10,7 +10,8 @@ import { useState } from "react";
 
 function OneTask(props) {
   const dispatch = useDispatch();
-  const profileUserId = useSelector((state) => state.user.profileUserId);
+  const isMyTask = useSelector((state) => state.task.isMyTask);
+  const userIdForTask = useSelector((state) => state.task.userIdForTask);
   const currentTask = useSelector((state) => state.task.currentTask);
   const currentPriorityId = useSelector(
     (state) => state.task.currentPriorityId
@@ -23,7 +24,7 @@ function OneTask(props) {
     dispatch(editPriorityId("1"));
   };
 
-  const getUser = () => dispatch(fetchUserData(profileUserId));
+  const getUser = () => dispatch(fetchUserData(userIdForTask));
 
   async function progressChange(addNum, taskId, progressId) {
     try {
@@ -147,7 +148,7 @@ function OneTask(props) {
         <div>{props.task}</div>
         <>{Priority(props.priorityId)}</>
         <>
-          {props.progressId !== 1 && (
+          {isMyTask && props.progressId !== 1 && (
             <button
               onClick={() => progressChange(-1, props.taskId, props.progressId)}
             >
@@ -156,7 +157,7 @@ function OneTask(props) {
           )}
         </>
         <>
-          {props.progressId !== 3 && (
+          {isMyTask && props.progressId !== 3 && (
             <button
               onClick={() => progressChange(1, props.taskId, props.progressId)}
             >
@@ -164,8 +165,12 @@ function OneTask(props) {
             </button>
           )}
         </>
-        <button onClick={editButtonClick}>編集</button>
-        <button onClick={taskDeleteButtonClick}>削除</button>
+        {isMyTask && (
+          <>
+            <button onClick={editButtonClick}>編集</button>
+            <button onClick={taskDeleteButtonClick}>削除</button>
+          </>
+        )}
       </div>
       <>
         <Modal open={open} onClose={modalClose}>

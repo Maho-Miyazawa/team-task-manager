@@ -6,8 +6,8 @@ import { fetchUserData } from "../slices/userSlice";
 
 function Tasks() {
   const dispatch = useDispatch();
-  const profileUserId = useSelector((state) => state.user.profileUserId);
-  const getUser = () => dispatch(fetchUserData(profileUserId));
+  const userIdForTask = useSelector((state) => state.task.userIdForTask);
+  const getUser = () => dispatch(fetchUserData(userIdForTask));
 
   useEffect(() => {
     getUser();
