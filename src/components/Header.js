@@ -37,9 +37,12 @@ function Header() {
       let collationData = collation.data.data.CollateUserId;
 
       dispatch(setProfileUserId(user.sub));
-      dispatch(setProfileTeamId(Number(collationData.team_id)));
-      dispatch(setProfileUserName(collationData.name));
-      dispatch(setProfileTeamName(collationData.team.name));
+
+      if (collationData) {
+        dispatch(setProfileTeamId(Number(collationData.team_id)));
+        dispatch(setProfileUserName(collationData.name));
+        dispatch(setProfileTeamName(collationData.team.name));
+      }
     } catch (err) {
       console.error(err);
     }
