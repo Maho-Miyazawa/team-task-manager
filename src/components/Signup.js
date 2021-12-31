@@ -4,6 +4,7 @@ import { inputUserName, inputTeam } from "../slices/signupSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "./Header";
 import "../App.css";
 
 function Signup() {
@@ -14,6 +15,8 @@ function Signup() {
   const userName = useSelector((state) => state.signup.userName);
   const team = useSelector((state) => state.signup.team);
   const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
+  const loginButtonClick = () => loginWithRedirect();
 
   const handleChangeUserName = (e) => {
     e.preventDefault();
@@ -93,6 +96,17 @@ function Signup() {
 
   return (
     <div>
+      <Header />
+      {!isDraw && (
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            loginButtonClick();
+          }}
+        >
+          アカウント設定
+        </button>
+      )}
       {isCollationResult && <Link to="/my-page">マイページへ</Link>}
       <>
         {!isCollationResult && isDraw && (
