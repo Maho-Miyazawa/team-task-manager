@@ -8,6 +8,10 @@ body {
   background-color: #fff;
 }
 
+.check-square {
+  height: 5rem;
+}
+
 button {
   border: none;
   cursor: pointer;
@@ -109,7 +113,6 @@ button {
 }
 
 .my-page-container {
-  /* background: #f3f6f9; */
   height: 90vh;
 }
 
@@ -118,59 +121,88 @@ button {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5rem;
+  gap: 3rem;
   padding: 2rem 0;
 }
 
 .task-line {
-  width: 18rem;
+  width: 20rem;
   height: 35rem;
   background: #f3f6f9;
   border-radius: 1rem;
-  padding: 1rem 1rem;
+  padding: 1rem 0rem 1rem 0rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.progress-title {
+  text-align: center;
+  padding: 0.8rem 0 0 0;
+  font-size: 1.1rem;
+}
+.task-one-line-area {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 31rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
 .task {
   padding: 1rem;
-  margin: 1rem;
+  margin: 1rem 1.4rem;
   background: white;
   border-radius: 0.7rem;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
-.progress-title {
-  text-align: center;
-  padding: 1rem 0 0 0;
-}
-
 .task-move-button {
-  width: 2rem;
-  height: 2rem;
+  font-size: 1.5rem;
   top: 35%;
+  color: #c4c6c8;
 }
 .task-move-button:hover {
   cursor: pointer;
+  color: #007fff;
+}
+.task-move-button-left {
+  position: absolute;
+  left: -1.6rem;
 }
 .task-move-button-right {
   position: absolute;
-  right: -2rem;
+  right: -1.6rem;
 }
 
-.task-move-button-left {
-  position: absolute;
-  left: -2rem;
+.priority-tag {
+  color: #007fff;
+  font-size: 1rem;
 }
-/* .priority-tag-low {
-  background: lightgreen;
+
+.task-edit-delete-area {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
 }
-.priority-tag-middle {
-  background: yellow;
+
+.task-edit-delete-button {
+  font-size: 1.6rem;
 }
-.priority-tag-high {
-  background: red;
-} */
+.task-edit-delete-button:hover {
+  cursor: pointer;
+}
+
+.task-edit-button {
+  color: #4ba2fc;
+}
+.task-edit-button:hover {
+  color: #007fff;
+}
+.task-delete-button {
+  color: #b2bac2;
+}
+.task-delete-button:hover {
+  color: #969da4;
+}
 
 .modal {
   position: absolute;

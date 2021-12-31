@@ -7,8 +7,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import imgArrowRight from "../images/img-arrow-right.png";
-import imgArrowLeft from "../images/img-arrow-left.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function OneTask(props) {
   const dispatch = useDispatch();
@@ -79,21 +83,15 @@ function OneTask(props) {
   }
 
   function Priority(num) {
-    const obj = {
-      1: "priority-tag-low",
-      2: "priority-tag-middle",
-      3: "priority-tag-high",
-    };
+    const priorityStars = [];
 
-    let className = "";
-    for (const key in obj) {
-      if (Number(num) === Number(key)) {
-        className = obj[key];
-        break;
-      }
+    for (let i = 0; i < Number(num); i++) {
+      priorityStars.push(
+        <FontAwesomeIcon icon={faStar} className="priority-tag" />
+      );
     }
 
-    return <div className={className}>優先度: {props.priorityLevel}</div>;
+    return priorityStars.map((star) => star);
   }
 
   const editButtonClick = (e) => {
@@ -148,12 +146,10 @@ function OneTask(props) {
     <>
       <div className="task" key={props.taskId}>
         <div>{props.task}</div>
-        <>{Priority(props.priorityId)}</>
         <>
           {isMyTask && props.progressId !== 1 && (
-            <img
-              src={imgArrowLeft}
-              alt="左矢印"
+            <FontAwesomeIcon
+              icon={faChevronCircleLeft}
               className="task-move-button task-move-button-left"
               onClick={() => progressChange(-1, props.taskId, props.progressId)}
             />
@@ -161,20 +157,32 @@ function OneTask(props) {
         </>
         <>
           {isMyTask && props.progressId !== 3 && (
-            <img
-              src={imgArrowRight}
-              alt="右矢印"
+            <FontAwesomeIcon
+              icon={faChevronCircleRight}
               className="task-move-button task-move-button-right"
               onClick={() => progressChange(1, props.taskId, props.progressId)}
             />
           )}
         </>
-        {isMyTask && (
-          <>
-            <button onClick={editButtonClick}>編集</button>
-            <button onClick={taskDeleteButtonClick}>削除</button>
-          </>
-        )}
+        <div>
+          <>{Priority(props.priorityId)}</>
+          <div className="task-edit-delete-area">
+            {isMyTask && (
+              <>
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  onClick={editButtonClick}
+                  className="task-edit-delete-button task-edit-button"
+                />
+                <FontAwesomeIcon
+                  icon={faTrashAlt}
+                  onClick={taskDeleteButtonClick}
+                  className="task-edit-delete-button task-delete-button"
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
       <>
         <Modal open={open} onClose={modalClose}>

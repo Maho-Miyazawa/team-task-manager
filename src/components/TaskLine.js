@@ -8,7 +8,7 @@ function TaskLine(props) {
     <>
       <div className="task-line">
         <div className="progress-title">{props.taskLineContents}</div>
-        <>
+        <div className="task-one-line-area">
           {userData.tasks &&
             userData.tasks
               .filter((task) => task.progress.id === props.progressNum)
@@ -25,7 +25,7 @@ function TaskLine(props) {
                   />
                 );
               })}
-        </>
+        </div>
       </div>
     </>
   );
