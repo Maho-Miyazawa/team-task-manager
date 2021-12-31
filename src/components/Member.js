@@ -9,6 +9,8 @@ import {
   setUserNmeForTasks,
 } from "../slices/taskSlice";
 import Header from "./Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Member() {
   const dispatch = useDispatch();
@@ -60,34 +62,63 @@ function Member() {
   return (
     <div>
       <Header />
-      <Link to="/my-page">
-        <button>マイページへ</button>
-      </Link>
-      <table>
-        <thead>
-          <tr>
-            <td>名前</td>
-            <td>チーム名</td>
-          </tr>
-        </thead>
-        <tbody>
-          {memberList.map((member) => {
-            return (
-              <tr key={member.id}>
-                <td>{member.name}</td>
-                <td>{member.team.name}</td>
-                <td>
-                  <button
-                    onClick={(e) => selectMember(e, member.id, member.name)}
-                  >
-                    選択
-                  </button>
+      <div className="member-page-container">
+        <div className="member-page-container-button-area">
+          <Link to="/my-page">
+            <button className="go-my-page-button">マイページへ</button>
+          </Link>
+        </div>
+        <div className="member-table-container">
+          <table className="member-table">
+            <thead>
+              <tr>
+                <td className="member-table-td member-table-head member-table-td-person"></td>
+                <td className="member-table-td member-table-head member-table-td-name">
+                  名前
+                </td>
+                <td className="member-table-td member-table-head member-table-td-team">
+                  チーム名
+                </td>
+                <td className="member-table-td member-table-head member-table-td-button">
+                  メンバー選択
                 </td>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {memberList.map((member) => {
+                return (
+                  <tr
+                    className="member-table-tr"
+                    key={member.id}
+                    onClick={(e) => selectMember(e, member.id, member.name)}
+                  >
+                    <td className="member-table-td member-table-td-person">
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        className="member-table-image-person"
+                      />
+                    </td>
+                    <td className="member-table-td member-table-td-name">
+                      {member.name}
+                    </td>
+                    <td className="member-table-td member-table-td-team">
+                      {member.team.name}
+                    </td>
+                    <td className="member-table-td member-table-td-button">
+                      <button
+                        className="member-select-button"
+                        onClick={(e) => selectMember(e, member.id, member.name)}
+                      >
+                        選択
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

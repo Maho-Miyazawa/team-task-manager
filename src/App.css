@@ -99,7 +99,7 @@ button {
   align-items: center;
   flex-wrap: wrap;
   height: 10vh;
-  /* background: #f3f6f9; */
+  box-shadow: 0 3px 2px silver;
 }
 .header-left-area {
   display: flex;
@@ -133,12 +133,14 @@ button {
 }
 
 .my-page-container,
-.member-tasks-page-container {
+.member-tasks-page-container,
+.member-page-container {
   height: 90vh;
   padding: 0 3rem;
 }
 .my-page-container-button-area,
-.member-tasks-page-container-button-area {
+.member-tasks-page-container-button-area,
+.member-page-container-button-area {
   display: flex;
   gap: 1.5rem;
   align-items: center;
@@ -157,7 +159,7 @@ button {
 }
 
 .create-task-button:hover,
-go-my-page-button:hover {
+.go-my-page-button:hover {
   background: #0059b2;
 }
 
@@ -216,7 +218,7 @@ go-my-page-button:hover {
 .task-move-button {
   font-size: 1.5rem;
   top: 35%;
-  color: #c4c6c8;
+  color: #d6d8da;
 }
 .task-move-button:hover {
   cursor: pointer;
@@ -338,4 +340,67 @@ go-my-page-button:hover {
 
 .modal-close-button:hover {
   background: #eef1f4;
+}
+.member-table-container {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0 0 0;
+}
+.member-table {
+  border-collapse: collapse;
+  border-spacing: 1rem;
+  width: 80vw;
+}
+
+.member-table-tr:hover {
+  cursor: pointer;
+  background: #eef1f4;
+}
+
+.member-table-td {
+  border: 0.15rem solid #eef1f4;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+}
+.member-table-head {
+  height: 2.8rem;
+  background: #0059b2;
+  color: white;
+  border: 0.15rem solid #0059b2;
+  font-weight: 600;
+}
+.member-table-td-person {
+  border-right: none;
+  width: 10vw;
+  padding: 0 0 0 2.5rem;
+}
+.member-table-td-name {
+  border-left: none;
+  border-right: none;
+  width: 40vw;
+}
+.member-table-td-team {
+  border-left: none;
+  border-right: none;
+  width: 20vw;
+}
+.member-table-td-button {
+  border-left: none;
+  width: 10vw;
+}
+.member-select-button {
+  font-size: 1rem;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 0.12rem solid #cdd2d7;
+  background: white;
+}
+
+.member-select-button:hover {
+  background: #eef1f4;
+}
+.member-table-image-person {
+  color: #0059b2;
+  font-size: 2rem;
 }
