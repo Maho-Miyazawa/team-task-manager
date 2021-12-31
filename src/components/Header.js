@@ -2,18 +2,21 @@ import LogoutButton from "./LogoutButton";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   setProfileUserName,
   setProfileTeamId,
-  setProfileTeamName,
+  //   setProfileTeamName,
   setProfileUserId,
 } from "../slices/userSlice";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const dispatch = useDispatch();
   const profileUserName = useSelector((state) => state.user.profileUserName);
-  const profileTeamName = useSelector((state) => state.user.profileTeamName);
+  //   const profileTeamName = useSelector((state) => state.user.profileTeamName);
   const { user } = useAuth0();
 
   const setProfileData = async () => {
@@ -41,7 +44,7 @@ function Header() {
       if (collationData) {
         dispatch(setProfileTeamId(Number(collationData.team_id)));
         dispatch(setProfileUserName(collationData.name));
-        dispatch(setProfileTeamName(collationData.team.name));
+        // dispatch(setProfileTeamName(collationData.team.name));
       }
     } catch (err) {
       console.error(err);
@@ -56,10 +59,13 @@ function Header() {
 
   return (
     <div className="header">
-      <div>
-        <div>{profileUserName}</div>
-        <div>{profileTeamName}</div>
-      </div>
+      <Link to="/my-page">
+        <div className="header-left-area">
+          <FontAwesomeIcon icon={faAddressCard} className="header-icon" />
+          <div className="header-profile-name">{profileUserName}</div>
+        </div>
+      </Link>
+      {/* <div>{profileTeamName}</div> */}
       <LogoutButton />
     </div>
   );

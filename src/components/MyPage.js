@@ -26,11 +26,13 @@ function MyPage() {
     <div>
       <Header />
       <div className="my-page-container">
-        <div>{userNameForTasks}</div>
-        <CreateTask />
-        <Link to="/member">
-          <button>メンバー一覧</button>
-        </Link>
+        <div className="my-page-container-button-area">
+          <CreateTask />
+          <Link to="/member">
+            <button className="member-list-button">メンバー一覧</button>
+          </Link>
+          <div>{userNameForTasks}</div>
+        </div>
         <Tasks />
       </div>
     </div>

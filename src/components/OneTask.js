@@ -187,26 +187,43 @@ function OneTask(props) {
       <>
         <Modal open={open} onClose={modalClose}>
           <Box className="modal">
-            <Typography>タスク編集</Typography>
-            <>
-              <input
-                type="text"
-                value={currentTask}
-                onChange={handleEditTask}
-              />
-              <select value={currentPriorityId} onChange={handleEditPriority}>
-                <option value={1}>低い</option>
-                <option value={2}>普通</option>
-                <option value={3}>高い</option>
-              </select>
-              <button onClick={updateCancel}>キャンセル</button>
-              <input
-                type="submit"
-                value="更新"
-                onClick={updateTaskButtonClick}
-              />
-              <button onClick={modalClose}>閉じる</button>
-            </>
+            <Typography className="modal-contents">
+              <Typography className="modal-title-area">
+                <label className="modal-title">編集</label>
+              </Typography>
+              <Typography>
+                <label className="modal-label">タスク: </label>
+                <input
+                  type="text"
+                  value={currentTask}
+                  className="modal-input-task"
+                  onChange={handleEditTask}
+                />
+              </Typography>
+              <Typography>
+                <label className="modal-label">優先度: </label>
+                <select
+                  className="modal-input-priority"
+                  value={currentPriorityId}
+                  onChange={handleEditPriority}
+                >
+                  <option value={1}>低い</option>
+                  <option value={2}>普通</option>
+                  <option value={3}>高い</option>
+                </select>
+              </Typography>
+              <Typography className="modal-finish-button-area">
+                <input
+                  type="submit"
+                  className="modal-confirm-finish-button"
+                  value="更新"
+                  onClick={updateTaskButtonClick}
+                />
+                <button className="modal-close-button" onClick={updateCancel}>
+                  キャンセル
+                </button>
+              </Typography>
+            </Typography>
           </Box>
         </Modal>
       </>

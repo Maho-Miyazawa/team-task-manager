@@ -4,7 +4,6 @@ import { fetchUserData } from "../slices/userSlice";
 import { setNewTask, setNewPriorityId } from "../slices/taskSlice";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
@@ -61,25 +60,47 @@ function CreateTask() {
 
   return (
     <>
-      <Button onClick={modalOpen}>タスク作成</Button>
+      <button onClick={modalOpen} className="create-task-button">
+        タスク作成
+      </button>
       <Modal open={open} onClose={modalClose}>
         <Box className="modal">
-          <Typography>タスク作成</Typography>
-          <Typography>
-            <>
+          <Typography className="modal-contents">
+            <Typography className="modal-title-area">
+              <label className="modal-title">新規作成</label>
+            </Typography>
+            <Typography>
+              <label className="modal-label">タスク: </label>
               <input
                 type="text"
                 value={newTask}
+                className="modal-input-task"
                 onChange={handleChangeNewTask}
               />
-              <select value={newPriorityId} onChange={progressChange}>
+            </Typography>
+            <Typography>
+              <label className="modal-label">優先度: </label>
+              <select
+                className="modal-input-priority"
+                value={newPriorityId}
+                onChange={progressChange}
+              >
                 <option value={1}>低い</option>
                 <option value={2}>普通</option>
                 <option value={3}>高い</option>
               </select>
-              <input type="submit" value="作成" onClick={addNewTask} />
-              <button onClick={modalClose}>閉じる</button>
-            </>
+            </Typography>
+            <Typography className="modal-finish-button-area">
+              <input
+                className="modal-confirm-finish-button"
+                type="submit"
+                value="作成"
+                onClick={addNewTask}
+              />
+              <button className="modal-close-button" onClick={modalClose}>
+                閉じる
+              </button>
+            </Typography>
           </Typography>
         </Box>
       </Modal>
