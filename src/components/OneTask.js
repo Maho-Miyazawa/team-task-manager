@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
+import imgArrowRight from "../images/img-arrow-right.png";
+import imgArrowLeft from "../images/img-arrow-left.png";
 
 function OneTask(props) {
   const dispatch = useDispatch();
@@ -149,20 +151,22 @@ function OneTask(props) {
         <>{Priority(props.priorityId)}</>
         <>
           {isMyTask && props.progressId !== 1 && (
-            <button
+            <img
+              src={imgArrowLeft}
+              alt="左矢印"
+              className="task-move-button task-move-button-left"
               onClick={() => progressChange(-1, props.taskId, props.progressId)}
-            >
-              左に移動
-            </button>
+            />
           )}
         </>
         <>
           {isMyTask && props.progressId !== 3 && (
-            <button
+            <img
+              src={imgArrowRight}
+              alt="右矢印"
+              className="task-move-button task-move-button-right"
               onClick={() => progressChange(1, props.taskId, props.progressId)}
-            >
-              右に移動
-            </button>
+            />
           )}
         </>
         {isMyTask && (
