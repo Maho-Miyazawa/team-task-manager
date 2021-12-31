@@ -14,11 +14,11 @@
 
 ## 環境
 
-- Git: 2.32.0
 - Node: 14.18.1
 - yarn: 1.22.17（npm: 8.1.0）
 - psql (PostgreSQL): 13.3
-- Auth0 のアカウント必要
+- Git: 2.32.0
+- Auth0 のアカウント必須
 
 <br>
 
@@ -83,7 +83,22 @@ create database team_task_manager;
 
 <br>
 
-### 6. env ファイルの設定
+### 6. Auth0（認証機能）の設定
+
+- [Auth0](https://auth0.com/jp)にログインし、新規アプリを作成
+  - アプリ名（例: team-task-manager）を設定
+  - Single Page Web Applications を選択
+- team-task-manager アプリの setting > Application URIs の設定（下記を入力）
+  - Allowed Callback URLs
+    - http://localhost:3000/signup
+  - Allowed Logout URLs
+    - http://localhost:3000
+  - Allowed Web Origins
+    - http://localhost:3000/\*
+
+<br>
+
+### 7. env ファイルの設定
 
 - ファイルの作成
 
@@ -107,7 +122,7 @@ REACT_APP_AUTH_CLIENT_ID="Auth0のクライアントID"
 
 <br>
 
-### 7. マイグレーションを実行（users, teams, tasks, progress, priorities の 5 つのテーブルを作成）
+### 8. マイグレーションを実行（users, teams, tasks, progress, priorities の 5 つのテーブルを作成）
 
 ```bash
 # yarnの場合
@@ -119,7 +134,7 @@ npm run migrate:dev
 
 <br>
 
-### 8. seed を実行（上記で作成したテーブルにデータを挿入）
+### 9. seed を実行（上記で作成したテーブルにデータを挿入）
 
 ```bash
 # yarnの場合
@@ -131,7 +146,7 @@ npm run seed
 
 <br>
 
-### 9. ローカルサーバーを立ち上げる（ターミナルを 2 つ立ち上げ、下記の 2 つのコマンドをそれぞれ実行）
+### 10. ローカルサーバーを立ち上げる（ターミナルを 2 つ立ち上げ、下記の 2 つのコマンドをそれぞれ実行）
 
 ```bash
 # yarnの場合
@@ -150,7 +165,18 @@ npm run react # Reactを起動
 - GitHub 上の自分のローカルリポジトリに、今回作成した team-task-manager リポジトリを追加
 - Heroku を立ち上げ、GitHub と連携し、パイプラインを作成
 - Resources の Add-ons に、Heroku Postgres を選択
-- Setting の Config Vars に、`PGSSLMODE=no-verify`を入力
+- Setting の Config Vars に、環境変数の設定
+  - `PGSSLMODE=no-verify`
+  - `REACT_APP_AUTH_CLIENT_ID=Auth0のドメイン(envファイルの設定と同じ)`
+  - `REACT_APP_AUTH_DOMAIN=Auth0のクライアントID(envファイルの設定と同じ)`
+- Auth0 の Application URIs の設定
+  - team-task-manager アプリの setting > Application URIs にカンマ区切りで下記を追加
+  - Allowed Callback URLs
+    - `デプロイ先のURL/signup`
+  - Allowed Logout URLs
+    - `デプロイ先のURL`
+  - Allowed Web Origins
+    - `デプロイ先の URL/*`
 - Deploy から、Manual deploy の中の Deploy Branch ボタンをクリック
 - デプロイ完了
 
