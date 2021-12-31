@@ -9,14 +9,18 @@ function MemberTasks() {
   return (
     <div>
       <Header />
-      <div>{userNameForTasks}</div>
-      <Link to="/my-page">
-        <button>マイページへ</button>
-      </Link>
-      <Link to="/member">
-        <button>メンバー一覧</button>
-      </Link>
-      <Tasks />
+      <div className="member-tasks-page-container">
+        <div className="member-tasks-page-container-button-area">
+          <Link to="/my-page">
+            <button className="go-my-page-button">マイページへ</button>
+          </Link>
+          <Link to="/member">
+            <button className="member-list-button">メンバー一覧</button>
+          </Link>
+          <div>{userNameForTasks}</div>
+        </div>
+        <Tasks />
+      </div>
     </div>
   );
 }

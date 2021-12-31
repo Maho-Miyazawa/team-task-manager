@@ -132,18 +132,21 @@ button {
   background: white;
 }
 
-.my-page-container {
+.my-page-container,
+.member-tasks-page-container {
   height: 90vh;
   padding: 0 3rem;
 }
-.my-page-container-button-area {
+.my-page-container-button-area,
+.member-tasks-page-container-button-area {
   display: flex;
   gap: 1.5rem;
   align-items: center;
   padding: 1rem 0 0 0;
 }
 
-.create-task-button {
+.create-task-button,
+.go-my-page-button {
   background: #007fff;
   color: white;
   font-size: 1rem;
@@ -153,7 +156,8 @@ button {
   font-weight: bold;
 }
 
-.create-task-button:hover {
+.create-task-button:hover,
+go-my-page-button:hover {
   background: #0059b2;
 }
 
