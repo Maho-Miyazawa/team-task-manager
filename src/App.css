@@ -1,13 +1,87 @@
-.wrapper {
-  /* padding: 1rem 0 0 1rem; */
+body {
+  margin: 0;
+  color: #1a2027;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 400;
+  background-color: #fff;
 }
 
-/* .main {
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.top-page-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.top-title-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  text-align: center;
+  align-items: center;
+  margin: 0 8%;
+}
+
+.top-title {
+  font-size: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1;
+  margin: 0;
+}
+
+.top-title-decoration {
+  background: linear-gradient(to right, #007fff, #0059b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.top-title-description {
+  text-align: justify;
+  font-size: 0.9rem;
+  padding: 0 1.7rem;
+  margin: 2rem 0 4rem 0;
+}
+
+.top-page-login-signup-area {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 5rem;
-} */
+  justify-content: center;
+  gap: 3rem;
+}
+
+.login-button {
+  background: #007fff;
+  color: white;
+  font-size: 1rem;
+  width: 9rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.login-button:hover {
+  background: #0059b2;
+}
+
+.signup-button {
+  font-size: 1rem;
+  width: 9rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  border: 0.12rem solid #cdd2d7;
+  background: white;
+}
+
+.signup-button:hover {
+  background: #eef1f4;
+}
 
 .header {
   background: lightblue;

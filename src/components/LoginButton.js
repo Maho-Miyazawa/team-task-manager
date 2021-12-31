@@ -6,9 +6,9 @@ const LoginButton = () => {
   const loginButtonClick = () => loginWithRedirect();
 
   return (
-    <div>
-      <button onClick={loginButtonClick}>ログイン</button>
-    </div>
+    <button className="login-button" onClick={loginButtonClick}>
+      ログイン
+    </button>
   );
 };
 

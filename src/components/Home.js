@@ -8,10 +8,29 @@ function Home() {
   };
 
   return (
-    <div>
-      <h1>Team Task Manager</h1>
-      <LoginButton />
-      <button onClick={signup}>新規登録</button>
+    <div className="top-page-wrapper">
+      <div className="top-title-container">
+        <div>
+          <h1 className="top-title">
+            Team <span className="top-title-decoration">Task</span> Manager
+          </h1>
+          <p className="top-title-description">
+            Team Task
+            Managerアプリは、会社の同じ部署のメンバーや、同じチームのメンバーとタスクの進捗度を共有することができるアプリです。
+            <br />
+            マイページで、自分のタスク管理ができるのはもちろんのこと、別のページでは、チームメンバーの現在のタスクの状況を確認することができます。
+            <br />
+            さあ、チームコミュニケーションを活発化しましょう！
+          </p>
+          <div className="top-page-login-signup-area">
+            <LoginButton />
+            <button className="signup-button" onClick={signup}>
+              新規登録
+            </button>
+          </div>
+        </div>
+        <div>Good</div>
+      </div>
     </div>
   );
 }

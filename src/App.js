@@ -8,15 +8,13 @@ import MemberTasks from "./components/MemberTasks";
 
 function App() {
   return (
-    <div className="wrapper">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="my-page" element={<MyPage />} />
-        <Route path="member" element={<Member />} />
-        <Route path="member/tasks" element={<MemberTasks />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="signup" element={<Signup />} />
+      <Route path="my-page" element={<MyPage />} />
+      <Route path="member" element={<Member />} />
+      <Route path="member/tasks" element={<MemberTasks />} />
+    </Routes>
   );
 }
 
