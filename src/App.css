@@ -404,3 +404,78 @@ button {
   color: #0059b2;
   font-size: 2rem;
 }
+
+.account-setting-button {
+  background: #007fff;
+  color: white;
+  font-size: 1rem;
+  width: 9rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: none;
+}
+
+.account-setting-button:hover {
+  background: #0059b2;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  background: #f3f6f9;
+  height: 90vh;
+}
+.signup-container-contents {
+  width: 25rem;
+  height: 24rem;
+  background: white;
+  margin: 5rem 0 0 0;
+  padding: 3rem 5rem;
+  border-radius: 2rem;
+  box-shadow: 4px 4px 6px silver;
+}
+.signup-title {
+  font-size: 2rem;
+  background: linear-gradient(to right, #007fff, #0059b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+.signup-form-parts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signup-input-name-area {
+  margin: 3rem 0;
+}
+
+.signup-input-name {
+  padding: 0 0.3rem;
+  font-size: 1.4rem;
+  width: 20rem;
+  height: 3rem;
+}
+.signup-input-team {
+  height: 3rem;
+  width: 14rem;
+  font-size: 1.2rem;
+}
+.signup-confirm-button {
+  background: #007fff;
+  color: white;
+  font-size: 1rem;
+  width: 9rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: none;
+  font-size: 1.2rem;
+  margin: 3rem 0 0 0;
+}
+
+.signup-confirm-button:hover {
+  background: #0059b2;
+  cursor: pointer;
+}

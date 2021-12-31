@@ -98,39 +98,68 @@ function Signup() {
     <div>
       <Header />
       {!isDraw && (
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            loginButtonClick();
-          }}
-        >
-          アカウント設定
-        </button>
+        <>
+          <p>
+            はじめにアカウントの設定を行います。
+            <br />
+            アカウント設定ボタンをクリックしてください。
+          </p>
+          <button
+            className="account-setting-button"
+            onClick={(e) => {
+              e.preventDefault();
+              loginButtonClick();
+            }}
+          >
+            アカウント設定
+          </button>
+        </>
       )}
       {isCollationResult && <Link to="/my-page">マイページへ</Link>}
       <>
         {!isCollationResult && isDraw && (
-          <>
-            <div>サインアップ</div>
-            <form onSubmit={createUserData}>
-              <input
-                type="text"
-                value={userName}
-                onChange={handleChangeUserName}
-              />
-              <select value={team} onChange={handleChangeTeam}>
-                {/* TODO データベースから取得して表示する */}
-                <option value={1}>総務部</option>
-                <option value={2}>人事部</option>
-                <option value={3}>経理部</option>
-                <option value={4}>広報部</option>
-                <option value={5}>営業部</option>
-                <option value={6}>企画部</option>
-                <option value={7}>社長室</option>
-              </select>
-              <input type="submit" value="確定" />
-            </form>
-          </>
+          <div className="signup-container">
+            <div className="signup-container-contents">
+              <form onSubmit={createUserData}>
+                <div className="signup-form-parts">
+                  <div className="signup-title">アカウント設定</div>
+                  <div className="signup-input-name-area">
+                    <label className="signup-input-name-label">名前: </label>
+                    <input
+                      type="text"
+                      className="signup-input-name"
+                      value={userName}
+                      onChange={handleChangeUserName}
+                    />
+                  </div>
+                  <div className="signup-input-team-area">
+                    <label className="signup-input-team-label">
+                      チーム名:{" "}
+                    </label>
+                    <select
+                      className="signup-input-team"
+                      value={team}
+                      onChange={handleChangeTeam}
+                    >
+                      {/* TODO データベースから取得して表示する */}
+                      <option value={1}>総務部</option>
+                      <option value={2}>人事部</option>
+                      <option value={3}>経理部</option>
+                      <option value={4}>広報部</option>
+                      <option value={5}>営業部</option>
+                      <option value={6}>企画部</option>
+                      <option value={7}>社長室</option>
+                    </select>
+                  </div>
+                  <input
+                    className="signup-confirm-button"
+                    type="submit"
+                    value="確定"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </>
     </div>
