@@ -21,18 +21,17 @@ button {
 }
 
 .top-page-wrapper {
-  display: flex;
-  align-items: center;
   height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vw;
+  text-align: center;
+  align-items: center;
 }
 
 .top-title-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  text-align: center;
-  align-items: center;
-  margin: 0 8%;
+  padding: 0 0 0 10%;
 }
 
 .top-title {
@@ -88,6 +87,24 @@ button {
 
 .signup-button:hover {
   background: #eef1f4;
+}
+
+.top-page-right-container {
+  background: #f3f6f9;
+  height: 48vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.top-page-img {
+  width: 42vw;
+  box-shadow: 4px 4px 40px silver;
+  object-fit: cover;
+  height: 60vh;
+  object-position: 10% 50%;
+  border-radius: 0.7rem;
 }
 
 .header {

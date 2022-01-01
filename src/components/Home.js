@@ -1,4 +1,5 @@
 import LoginButton from "./LoginButton";
+import topPageImg from "../images/img-top-page.png";
 
 function Home() {
   const signup = (e) => {
@@ -29,7 +30,15 @@ function Home() {
             </button>
           </div>
         </div>
-        <div>Good</div>
+      </div>
+      <div className="top-page-right-container">
+        <div className="top-page-img-area">
+          <img
+            className="top-page-img"
+            src={topPageImg}
+            alt="Team Task Managerのイメージ画像"
+          />
+        </div>
       </div>
     </div>
   );
