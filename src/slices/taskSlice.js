@@ -14,12 +14,12 @@ export const taskSlice = createSlice({
     setUserIdForTasks: (state, action) => {
       state.userIdForTask = action.payload;
     },
-    setUserNmeForTasks: (state, action) => {
+    setUserNameForTasks: (state, action) => {
       state.userNameForTasks = action.payload;
     },
   },
 });
 
-export const { setIsMyTask, setUserIdForTasks, setUserNmeForTasks } =
+export const { setIsMyTask, setUserIdForTasks, setUserNameForTasks } =
   taskSlice.actions;
 export default taskSlice.reducer;

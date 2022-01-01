@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setIsMyTask,
   setUserIdForTasks,
-  setUserNmeForTasks,
+  setUserNameForTasks,
 } from "../slices/taskSlice";
 
 function MyPage() {
@@ -19,7 +19,7 @@ function MyPage() {
   useEffect(() => {
     dispatch(setIsMyTask(true));
     dispatch(setUserIdForTasks(profileUserId));
-    dispatch(setUserNmeForTasks(profileUserName));
+    dispatch(setUserNameForTasks(profileUserName));
   });
 
   return (

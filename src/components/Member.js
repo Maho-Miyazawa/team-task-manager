@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   setIsMyTask,
   setUserIdForTasks,
-  setUserNmeForTasks,
+  setUserNameForTasks,
 } from "../slices/taskSlice";
 import Header from "./Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -50,14 +50,14 @@ function Member() {
   const selectMember = (e, memberId, memberName) => {
     e.preventDefault();
     dispatch(setUserIdForTasks(memberId));
-    dispatch(setUserNmeForTasks(memberName));
+    dispatch(setUserNameForTasks(memberName));
 
     if (profileUserId === memberId) {
       dispatch(setIsMyTask(true));
       navigate("/my-page");
     } else {
       dispatch(setIsMyTask(false));
-      navigate("/member/tasks");
+      navigate(`/member/${memberId}/${memberName}`);
     }
   };
 

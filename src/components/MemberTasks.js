@@ -1,10 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from "./Header";
 import Tasks from "./Tasks";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import {
+  setIsMyTask,
+  setUserIdForTasks,
+  setUserNameForTasks,
+} from "../slices/taskSlice";
 
 function MemberTasks() {
+  const { id, name } = useParams();
+  const dispatch = useDispatch();
   const userNameForTasks = useSelector((state) => state.task.userNameForTasks);
+
+  useEffect(() => {
+    dispatch(setIsMyTask(false));
+    dispatch(setUserIdForTasks(id));
+    dispatch(setUserNameForTasks(name));
+  });
 
   return (
     <div>

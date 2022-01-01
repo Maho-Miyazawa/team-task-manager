@@ -13,7 +13,7 @@ function App() {
       <Route path="signup" element={<Signup />} />
       <Route path="my-page" element={<MyPage />} />
       <Route path="member" element={<Member />} />
-      <Route path="member/tasks" element={<MemberTasks />} />
+      <Route path="member/:id/:name" element={<MemberTasks />} />
     </Routes>
   );
 }
