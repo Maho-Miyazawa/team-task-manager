@@ -1,31 +1,34 @@
 import "../App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "../slices/userSlice";
-import { setNewTask, setNewPriorityId } from "../slices/taskSlice";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 function CreateTask() {
   const dispatch = useDispatch();
-  const newTask = useSelector((state) => state.task.newTask);
-  const newPriorityId = useSelector((state) => state.task.newPriorityId);
   const profileUserId = useSelector((state) => state.user.profileUserId);
   const [open, setOpen] = useState(false);
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const modalOpen = () => setOpen(true);
   const modalClose = () => {
     setOpen(false);
-    dispatch(setNewTask(""));
-    dispatch(setNewPriorityId("1"));
+
+    reset({ newTask: "", newPriorityId: 1 });
   };
 
   const getUser = () => dispatch(fetchUserData(profileUserId));
 
-  async function addNewTask(e) {
+  async function addNewTask(data) {
     try {
-      e.preventDefault();
       await axios({
         method: "POST",
         url: "/graphql",
@@ -33,8 +36,8 @@ function CreateTask() {
           query: `mutation {
                 createNewTask(
                   user_id: "${profileUserId}"
-                  task: "${newTask}"
-                  priority_id: ${newPriorityId}
+                  task: "${data.newTask}"
+                  priority_id: ${data.newPriorityId}
                 )
                 {
                   id
@@ -42,20 +45,12 @@ function CreateTask() {
               }`,
         },
       });
-      dispatch(setNewTask(""));
-      dispatch(setNewPriorityId("1"));
+
       getUser();
     } catch (err) {
       console.error(err);
     }
-  }
-
-  function handleChangeNewTask(e) {
-    dispatch(setNewTask(e.target.value));
-  }
-
-  function progressChange(e) {
-    dispatch(setNewPriorityId(e.target.value));
+    reset({ newTask: "", newPriorityId: 1 });
   }
 
   return (
@@ -73,17 +68,20 @@ function CreateTask() {
               <label className="modal-label">タスク: </label>
               <input
                 type="text"
-                value={newTask}
+                name="newTask"
                 className="modal-input-task"
-                onChange={handleChangeNewTask}
+                {...register("newTask", { required: true })}
               />
+              <Typography className="form-error-message">
+                {errors.newTask && "＊必須項目です"}
+              </Typography>
             </Typography>
             <Typography>
               <label className="modal-label">優先度: </label>
               <select
                 className="modal-input-priority"
-                value={newPriorityId}
-                onChange={progressChange}
+                name="newPriorityId"
+                {...register("newPriorityId")}
               >
                 <option value={1}>低い</option>
                 <option value={2}>普通</option>
@@ -95,7 +93,7 @@ function CreateTask() {
                 className="modal-confirm-finish-button"
                 type="submit"
                 value="作成"
-                onClick={addNewTask}
+                onClick={handleSubmit(addNewTask)}
               />
               <button className="modal-close-button" onClick={modalClose}>
                 閉じる

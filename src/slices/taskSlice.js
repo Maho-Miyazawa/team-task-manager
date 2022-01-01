@@ -3,8 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const taskSlice = createSlice({
   name: "task",
   initialState: {
-    newTask: "",
-    newPriorityId: "1",
     currentTask: "",
     currentPriorityId: "1",
     isMyTask: true,
@@ -12,12 +10,6 @@ export const taskSlice = createSlice({
     userNameForTasks: "",
   },
   reducers: {
-    setNewTask: (state, action) => {
-      state.newTask = action.payload;
-    },
-    setNewPriorityId: (state, action) => {
-      state.newPriorityId = action.payload;
-    },
     editTask: (state, action) => {
       state.currentTask = action.payload;
     },
@@ -37,8 +29,6 @@ export const taskSlice = createSlice({
 });
 
 export const {
-  setNewTask,
-  setNewPriorityId,
   editTask,
   editPriorityId,
   setIsMyTask,
