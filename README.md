@@ -9,22 +9,36 @@
 ## デモ
 
 - ログイン時
+  <br>
+
   ![新規タスク作成のデモ](./demo/login.gif)
 
 <br>
+<br>
 
 - タスク作成時
-  ![新規タスク作成のデモ](./demo/new-task.gif)
 
+<br>
+
+![新規タスク作成のデモ](./demo/new-task.gif)
+
+<br>
 <br>
 
 - タスク更新時
-  ![タスク更新のデモ](./demo/update-task.gif)
 
 <br>
 
+![タスク更新のデモ](./demo/update-task.gif)
+
+<br>
+<br>
+
 - メンバー選択時
-  ![メンバー選択のデモ](./demo/select-mamber.gif)
+
+<br>
+
+![メンバー選択のデモ](./demo/select-mamber.gif)
 
 <br>
 
