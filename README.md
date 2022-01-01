@@ -208,7 +208,7 @@ npm run react # Reactを起動
   - Allowed Logout URLs
     - `デプロイ先のURL`
   - Allowed Web Origins
-    - `デプロイ先の URL/*`
+    - `デプロイ先の URL/`
 - Deploy から、Manual deploy の中の Deploy Branch ボタンをクリック
 - デプロイ完了
 
@@ -223,6 +223,7 @@ npm run react # Reactを起動
 - [GraphQL](https://graphql.org/) - A query language for your API
 - [Prisma](https://www.prisma.io/) - Next-generation Node.js and TypeScript ORM
 - [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
+- [ MUI](https://mui.com/) - The React UI library you always wanted
 - [React Hook Form](https://react-hook-form.com/jp/) - 高性能で柔軟かつ拡張可能な使いやすいフォームバリデーションライブラリ
 - [Auth0](https://auth0.com/jp) - 誰でも簡単に導入できる認証・認可プラットフォーム
 - [Heroku](https://jp.heroku.com/) - アプリケーションの開発から実行、運用までのすべてをクラウドで完結できる PaaS（サービスとしてのプラットフォーム）
