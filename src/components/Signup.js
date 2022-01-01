@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { inputUserName, inputTeam } from "../slices/signupSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Header from "./Header";
 import "../App.css";
 
@@ -11,22 +10,15 @@ function Signup() {
   const { user } = useAuth0();
   const [isCollationResult, setIsCollationResult] = useState(false);
   const [isDraw, setIsDraw] = useState(false);
-  const dispatch = useDispatch();
-  const userName = useSelector((state) => state.signup.userName);
-  const team = useSelector((state) => state.signup.team);
   const navigate = useNavigate();
   const { loginWithRedirect } = useAuth0();
   const loginButtonClick = () => loginWithRedirect();
-
-  const handleChangeUserName = (e) => {
-    e.preventDefault();
-    dispatch(inputUserName(e.target.value));
-  };
-
-  const handleChangeTeam = (e) => {
-    e.preventDefault();
-    dispatch(inputTeam(e.target.value));
-  };
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   const collateUserId = async () => {
     try {
@@ -59,9 +51,8 @@ function Signup() {
     }
   };
 
-  const createUserData = async (e) => {
+  const createUserData = async (data) => {
     try {
-      e.preventDefault();
       if (!isCollationResult) {
         await axios({
           method: "POST",
@@ -70,8 +61,8 @@ function Signup() {
             query: `mutation {
                           createNewUser(
                               id: "${user.sub}"
-                              teamId: ${team}
-                              name: "${userName}"
+                              teamId: ${data.team}
+                              name: "${data.userName}"
                           )
                           {
                           id
@@ -79,13 +70,13 @@ function Signup() {
                       }`,
           },
         });
-        dispatch(inputUserName(""));
-        dispatch(inputTeam(1));
+
         collateUserId();
       }
     } catch (err) {
       console.error(err);
     }
+    reset();
   };
 
   useEffect(() => {
@@ -98,29 +89,35 @@ function Signup() {
     <div>
       <Header />
       {!isDraw && (
-        <>
-          <p>
-            はじめにアカウントの設定を行います。
-            <br />
-            アカウント設定ボタンをクリックしてください。
-          </p>
-          <button
-            className="account-setting-button"
-            onClick={(e) => {
-              e.preventDefault();
-              loginButtonClick();
-            }}
-          >
-            アカウント設定
-          </button>
-        </>
+        <div className="account-setting-container">
+          <div className="account-setting-container-contents">
+            <p className="account-setting-description">
+              はじめに
+              <span className="account-setting-description-decoration">
+                アカウント
+              </span>
+              の設定を行います。
+              <br />
+              アカウント設定ボタンをクリックしてください。
+            </p>
+            <button
+              className="account-setting-button"
+              onClick={(e) => {
+                e.preventDefault();
+                loginButtonClick();
+              }}
+            >
+              アカウント設定
+            </button>
+          </div>
+        </div>
       )}
       {isCollationResult && <Link to="/my-page">マイページへ</Link>}
       <>
         {!isCollationResult && isDraw && (
           <div className="signup-container">
             <div className="signup-container-contents">
-              <form onSubmit={createUserData}>
+              <form onSubmit={handleSubmit(createUserData)}>
                 <div className="signup-form-parts">
                   <div className="signup-title">アカウント設定</div>
                   <div className="signup-input-name-area">
@@ -128,9 +125,12 @@ function Signup() {
                     <input
                       type="text"
                       className="signup-input-name"
-                      value={userName}
-                      onChange={handleChangeUserName}
+                      name="userName"
+                      {...register("userName", { required: true })}
                     />
+                    <p className="form-error-message">
+                      {errors.userName && "＊必須項目です"}
+                    </p>
                   </div>
                   <div className="signup-input-team-area">
                     <label className="signup-input-team-label">
@@ -138,8 +138,8 @@ function Signup() {
                     </label>
                     <select
                       className="signup-input-team"
-                      value={team}
-                      onChange={handleChangeTeam}
+                      name="team"
+                      {...register("team")}
                     >
                       {/* TODO データベースから取得して表示する */}
                       <option value={1}>総務部</option>
