@@ -87,7 +87,7 @@ function OneTask(props) {
 
     for (let i = 0; i < Number(num); i++) {
       priorityStars.push(
-        <FontAwesomeIcon icon={faStar} className="priority-tag" />
+        <FontAwesomeIcon key={i} icon={faStar} className="priority-tag" />
       );
     }
 
