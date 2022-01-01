@@ -24,6 +24,46 @@ async function usersSeeding() {
         team_id: 4,
         name: "木下　啓太",
       },
+      {
+        id: "5",
+        team_id: 5,
+        name: "栗田　大輔",
+      },
+      {
+        id: "6",
+        team_id: 1,
+        name: "明石　マリ",
+      },
+      {
+        id: "7",
+        team_id: 4,
+        name: "小池　信之",
+      },
+      {
+        id: "8",
+        team_id: 4,
+        name: "葉山　涼子",
+      },
+      {
+        id: "9",
+        team_id: 5,
+        name: "神山　太一",
+      },
+      {
+        id: "10",
+        team_id: 1,
+        name: "千堂　麻子",
+      },
+      {
+        id: "11",
+        team_id: 4,
+        name: "軒下　ふみ",
+      },
+      {
+        id: "12",
+        team_id: 4,
+        name: "朝日　徹",
+      },
     ],
   });
 
