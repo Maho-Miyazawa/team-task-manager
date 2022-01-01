@@ -324,9 +324,10 @@ button {
   border-radius: 0.5rem;
   font-weight: bold;
   border: none;
+  cursor: pointer;
 }
 
-.modal-create-finish-button:hover {
+.modal-confirm-finish-button:hover {
   background: #0059b2;
 }
 .modal-close-button {
@@ -405,6 +406,36 @@ button {
   font-size: 2rem;
 }
 
+.account-setting-container {
+  display: flex;
+  justify-content: center;
+  background: #f3f6f9;
+  height: 90vh;
+  align-items: center;
+}
+
+.account-setting-container-contents {
+  width: 30rem;
+  height: 30rem;
+  background: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 2rem;
+  box-shadow: 4px 4px 6px silver;
+}
+
+.account-setting-description-decoration {
+  background: linear-gradient(to right, #007fff, #0059b2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
 .account-setting-button {
   background: #007fff;
   color: white;
@@ -434,13 +465,15 @@ button {
   padding: 3rem 5rem;
   border-radius: 2rem;
   box-shadow: 4px 4px 6px silver;
+  display: flex;
+  align-items: center;
 }
 .signup-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   background: linear-gradient(to right, #007fff, #0059b2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: bold;
+  font-weight: 600;
 }
 .signup-form-parts {
   display: flex;
@@ -448,14 +481,19 @@ button {
   align-items: center;
 }
 .signup-input-name-area {
-  margin: 3rem 0;
+  margin: 2.5rem 0 1rem 0;
 }
 
 .signup-input-name {
-  padding: 0 0.3rem;
   font-size: 1.4rem;
   width: 20rem;
   height: 3rem;
+  padding: 0 0.5rem;
+}
+.form-error-message {
+  color: red;
+  font-size: 0.8rem;
+  text-align: end;
 }
 .signup-input-team {
   height: 3rem;
@@ -472,7 +510,7 @@ button {
   font-weight: bold;
   border: none;
   font-size: 1.2rem;
-  margin: 3rem 0 0 0;
+  margin: 2.8rem 0 0 0;
 }
 
 .signup-confirm-button:hover {
