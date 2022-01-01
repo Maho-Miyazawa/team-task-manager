@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
   faTrashAlt,
-  faChevronCircleRight,
-  faChevronCircleLeft,
   faStar,
+  faCaretSquareLeft,
+  faCaretSquareRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function OneTask(props) {
@@ -161,44 +161,54 @@ function OneTask(props) {
     <>
       <div className="task" key={props.taskId}>
         <div>{props.task}</div>
-        <>
-          {isMyTask && props.progressId !== 1 && (
-            <FontAwesomeIcon
-              icon={faChevronCircleLeft}
-              className="task-move-button task-move-button-left"
-              onClick={() => progressChange(-1, props.taskId, props.progressId)}
-            />
-          )}
-        </>
-        <>
-          {isMyTask && props.progressId !== 3 && (
-            <FontAwesomeIcon
-              icon={faChevronCircleRight}
-              className="task-move-button task-move-button-right"
-              onClick={() => progressChange(1, props.taskId, props.progressId)}
-            />
-          )}
-        </>
+
         <div>
           <>{Priority(props.priorityId)}</>
-          <div className="task-edit-delete-area">
-            {isMyTask && (
+          <div className="task-handle-button-area">
+            <div className="task-move-button-area">
               <>
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  onClick={editButtonClick}
-                  className="task-edit-delete-button task-edit-button"
-                />
-                <FontAwesomeIcon
-                  icon={faTrashAlt}
-                  onClick={taskDeleteButtonClick}
-                  className="task-edit-delete-button task-delete-button"
-                />
+                {isMyTask && props.progressId !== 1 && (
+                  <FontAwesomeIcon
+                    icon={faCaretSquareLeft}
+                    className="task-move-button task-move-button-left"
+                    onClick={() =>
+                      progressChange(-1, props.taskId, props.progressId)
+                    }
+                  />
+                )}
               </>
-            )}
+              <>
+                {isMyTask && props.progressId !== 3 && (
+                  <FontAwesomeIcon
+                    icon={faCaretSquareRight}
+                    className="task-move-button task-move-button-right"
+                    onClick={() =>
+                      progressChange(1, props.taskId, props.progressId)
+                    }
+                  />
+                )}
+              </>
+            </div>
+            <div className="task-edit-delete-area">
+              {isMyTask && (
+                <>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    onClick={editButtonClick}
+                    className="task-edit-delete-button task-edit-button"
+                  />
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    onClick={taskDeleteButtonClick}
+                    className="task-edit-delete-button task-delete-button"
+                  />
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
+
       <>
         <Modal open={open} onClose={modalClose}>
           <Box className="modal">
