@@ -1,33 +1,61 @@
 import "../App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserData } from "../slices/userSlice";
-import { editTask, editPriorityId } from "../slices/taskSlice";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
-import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faTrashAlt,
+  faChevronCircleRight,
+  faChevronCircleLeft,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 
 function OneTask(props) {
   const dispatch = useDispatch();
   const isMyTask = useSelector((state) => state.task.isMyTask);
   const userIdForTask = useSelector((state) => state.task.userIdForTask);
-  const currentTask = useSelector((state) => state.task.currentTask);
-  const currentPriorityId = useSelector(
-    (state) => state.task.currentPriorityId
-  );
+  const [originTask, setOriginTask] = useState(props.task);
+  const [originPriorityId, setOriginPriorityId] = useState(props.priorityId);
+
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const [open, setOpen] = useState(false);
-  const modalOpen = () => setOpen(true);
+
+  const modalOpen = async () => {
+    setOpen(true);
+    try {
+      const oneTask = await axios({
+        method: "POST",
+        url: "/graphql",
+        data: {
+          query: `query {
+                        OneTask(taskId: ${props.taskId}) {
+                        task
+                        priority_id
+                        }
+                    }`,
+        },
+      });
+      setOriginTask(oneTask.data.data.OneTask.task);
+      setOriginPriorityId(oneTask.data.data.OneTask.priority_id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const modalClose = () => {
     setOpen(false);
-    dispatch(editTask(""));
-    dispatch(editPriorityId("1"));
+
+    reset({ currentTask: props.task, currentPriorityId: props.priorityId });
   };
 
   const getUser = () => dispatch(fetchUserData(userIdForTask));
@@ -96,14 +124,12 @@ function OneTask(props) {
 
   const editButtonClick = (e) => {
     e.preventDefault();
-    dispatch(editTask(props.task));
-    dispatch(editPriorityId(props.priorityId));
+
     modalOpen();
   };
 
-  async function updateTaskButtonClick(e) {
+  async function updateTaskButtonClick(data) {
     try {
-      e.preventDefault();
       await axios({
         method: "POST",
         url: "/graphql",
@@ -111,8 +137,8 @@ function OneTask(props) {
           query: `mutation {
             updateTask(
                 taskId: ${props.taskId}
-                task: "${currentTask}"
-                priority_id: ${currentPriorityId}
+                task: "${data.currentTask}"
+                priority_id: ${data.currentPriorityId}
             )
             {
               id
@@ -121,26 +147,15 @@ function OneTask(props) {
         },
       });
       getUser();
-      modalClose();
+      reset({
+        currentTask: data.currentTask,
+        currentPriorityId: data.currentPriorityId,
+      });
+      setOpen(false);
     } catch (err) {
       console.error(err);
     }
   }
-
-  const updateCancel = (e) => {
-    e.preventDefault();
-    modalClose();
-  };
-
-  const handleEditTask = (e) => {
-    e.preventDefault();
-    dispatch(editTask(e.target.value));
-  };
-
-  const handleEditPriority = (e) => {
-    e.preventDefault();
-    dispatch(editPriorityId(Number(e.target.value)));
-  };
 
   return (
     <>
@@ -195,17 +210,22 @@ function OneTask(props) {
                 <label className="modal-label">タスク: </label>
                 <input
                   type="text"
-                  value={currentTask}
+                  name="currentTask"
+                  defaultValue={originTask}
                   className="modal-input-task"
-                  onChange={handleEditTask}
+                  {...register("currentTask", { required: true })}
                 />
+                <Typography className="form-error-message">
+                  {errors.currentTask && "＊必須項目です"}
+                </Typography>
               </Typography>
               <Typography>
                 <label className="modal-label">優先度: </label>
                 <select
                   className="modal-input-priority"
-                  value={currentPriorityId}
-                  onChange={handleEditPriority}
+                  name="currentPriorityId"
+                  defaultValue={originPriorityId}
+                  {...register("currentPriorityId")}
                 >
                   <option value={1}>低い</option>
                   <option value={2}>普通</option>
@@ -217,9 +237,9 @@ function OneTask(props) {
                   type="submit"
                   className="modal-confirm-finish-button"
                   value="更新"
-                  onClick={updateTaskButtonClick}
+                  onClick={handleSubmit(updateTaskButtonClick)}
                 />
-                <button className="modal-close-button" onClick={updateCancel}>
+                <button className="modal-close-button" onClick={modalClose}>
                   キャンセル
                 </button>
               </Typography>

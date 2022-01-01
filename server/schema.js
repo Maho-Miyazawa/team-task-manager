@@ -64,6 +64,17 @@ const typeDefs = gql`
     updated_at: Date
   }
 
+  type OneTask {
+    id: Int
+    user_id: String
+    task: String
+    progress_id: Int
+    priority_id: Int
+    is_deleted: Boolean
+    created_at: Date
+    updated_at: Date
+  }
+
   type Member {
     id: String
     team_id: Int
@@ -88,6 +99,7 @@ const typeDefs = gql`
     AllUsers(name: String): [User]
     User(id: String): TasksInUser
     Tasks(user_id: String): [Task]
+    OneTask(taskId: Int): OneTask
     CollateUserId(id: String): Profile
     Member(teamId: Int): [Member]
   }
