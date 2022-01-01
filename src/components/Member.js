@@ -49,14 +49,16 @@ function Member() {
 
   const selectMember = (e, memberId, memberName) => {
     e.preventDefault();
-    if (profileUserId === memberId) {
-      dispatch(setIsMyTask(true));
-    } else {
-      dispatch(setIsMyTask(false));
-    }
     dispatch(setUserIdForTasks(memberId));
     dispatch(setUserNmeForTasks(memberName));
-    navigate("/member/tasks");
+
+    if (profileUserId === memberId) {
+      dispatch(setIsMyTask(true));
+      navigate("/my-page");
+    } else {
+      dispatch(setIsMyTask(false));
+      navigate("/member/tasks");
+    }
   };
 
   return (
