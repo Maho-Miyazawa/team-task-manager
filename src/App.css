@@ -156,6 +156,13 @@ button {
   padding: 1rem 0 0 0;
 }
 
+.member-page-team-select {
+  font-size: 1rem;
+  width: 10rem;
+  height: 3rem;
+  padding: 0 0.5rem;
+}
+
 .create-task-button,
 .go-my-page-button {
   background: #007fff;

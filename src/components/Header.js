@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import {
   setProfileUserName,
   setProfileTeamId,
-  //   setProfileTeamName,
   setProfileUserId,
 } from "../slices/userSlice";
 import axios from "axios";
@@ -16,7 +15,6 @@ import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 function Header() {
   const dispatch = useDispatch();
   const profileUserName = useSelector((state) => state.user.profileUserName);
-  //   const profileTeamName = useSelector((state) => state.user.profileTeamName);
   const { user } = useAuth0();
 
   const setProfileData = async () => {
@@ -44,7 +42,6 @@ function Header() {
       if (collationData) {
         dispatch(setProfileTeamId(Number(collationData.team_id)));
         dispatch(setProfileUserName(collationData.name));
-        // dispatch(setProfileTeamName(collationData.team.name));
       }
     } catch (err) {
       console.error(err);
