@@ -12,10 +12,15 @@ async function startApolloServer() {
   const httpServer = http.createServer(app);
   app.use(express.static(path.resolve(__dirname, "..", "build")));
 
+  app.use("/signup", (_, res) => {
+    res.sendFile(path.resolve(__dirname, "../build/index.html"));
+  });
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    introspection: true,
   });
 
   const PORT = process.env.PORT || 4000;
