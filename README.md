@@ -46,9 +46,51 @@
 
 - Node: 14.18.1
 - yarn: 1.22.17（npm: 8.1.0）
+- npx: 8.1.0
 - psql (PostgreSQL): 13.3
 - Git: 2.32.0
+- heroku: heroku/7.59.2 darwin-x64 node-v12.21.0
 - Auth0 のアカウント必須
+- Heroku にデプロイする場合は、Heroku のアカウント必須
+
+<br>
+
+## Scripts（実行コマンド） の紹介
+
+- npm を使用する場合は、`yarn`の部分を`npm run`に変更して実行してください
+
+```bash
+# 本番環境でのサーバー起動
+yarn start
+
+
+# ビルドファイル作成
+yan build
+
+
+# 本番環境でのマイグレーション実行
+yarn migrate
+
+
+# seedingの実行
+yarn seed
+
+
+# 開発環境（ローカル）でのサーバー起動
+yarn dev
+
+
+# 開発環境（ローカル）でのフロントエンド起動
+yarn react
+
+
+# 開発環境（ローカル）でのマイグレーション実行
+yarn migrate:dev
+
+
+# マイグレーションのリセット
+yarn migrate:reset
+```
 
 <br>
 
@@ -122,13 +164,21 @@ create database team_task_manager;
   - Allowed Callback URLs
     - http://localhost:3000/signup
   - Allowed Logout URLs
-    - http://localhost:3000
+    - http://localhost:3000/
   - Allowed Web Origins
-    - http://localhost:3000/\*
+    - http://localhost:3000/
 
 <br>
 
-### 7. env ファイルの設定
+### 7. Prisma CLI の設定
+
+```bash
+npx prisma
+```
+
+<br>
+
+### 8. env ファイルの設定
 
 - ファイルの作成
 
@@ -152,7 +202,7 @@ REACT_APP_AUTH_CLIENT_ID="Auth0のクライアントID"
 
 <br>
 
-### 8. マイグレーションを実行（users, teams, tasks, progress, priorities の 5 つのテーブルを作成）
+### 9. マイグレーションを実行（users, teams, tasks, progress, priorities の 5 つのテーブルを作成）
 
 ```bash
 # yarnの場合
@@ -164,7 +214,7 @@ npm run migrate:dev
 
 <br>
 
-### 9. seed を実行（上記で作成したテーブルにデータを挿入）
+### 10. seed を実行（上記で作成したテーブルにデータを挿入）
 
 ```bash
 # yarnの場合
@@ -176,7 +226,7 @@ npm run seed
 
 <br>
 
-### 10. ローカルサーバーを立ち上げる（ターミナルを 2 つ立ち上げ、下記の 2 つのコマンドをそれぞれ実行）
+### 11. ローカルサーバーを立ち上げる（ターミナルを 2 つ立ち上げ、下記の 2 つのコマンドをそれぞれ実行）
 
 ```bash
 # yarnの場合
@@ -188,28 +238,53 @@ npm run dev   # serverを起動
 npm run react # Reactを起動
 ```
 
-### 11. デモ画面を参考に実際の画面を操作
+### 12. デモ画面を参考に実際の画面を操作
+
+- 注: 追加機能や、修正がある場合は、実際の画面と異なる場合があります
 
 <br>
 
 ## デプロイ
 
-- GitHub 上の自分のローカルリポジトリに、今回作成した team-task-manager リポジトリを追加
+- team-task-manager > prisma > seed > index.js ファイルを開き、下記のように変更
+  - そのまま
+    - teamSeeding
+    - progressSeeding
+    - prioritiesSeeding
+  - コメントアウト(or 削除)
+    - usersSeeding
+    - tasksSeeding
+- GitHub 上の自分のローカルリポジトリに、今回 clone した team-task-manager リポジトリを追加
 - Heroku を立ち上げ、GitHub と連携し、パイプラインを作成
 - Resources の Add-ons に、Heroku Postgres を選択
 - Setting の Config Vars に、環境変数の設定
   - `PGSSLMODE=no-verify`
   - `REACT_APP_AUTH_CLIENT_ID=Auth0のドメイン(envファイルの設定と同じ)`
   - `REACT_APP_AUTH_DOMAIN=Auth0のクライアントID(envファイルの設定と同じ)`
+- Heroku で react-router を使用するための設定
+
+  - Heroku CLI を設定していない場合は、[こちら](https://devcenter.heroku.com/ja/articles/heroku-cli)を参考に設定
+  - ログインや、リポジトリの接続などを行う
+  - ターミナル上で下記を実行
+
+  ```bash
+  # React Routerの設定
+  heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static.git
+  ```
+
 - Auth0 の Application URIs の設定
+
   - team-task-manager アプリの setting > Application URIs にカンマ区切りで下記を追加
   - Allowed Callback URLs
     - `デプロイ先のURL/signup`
   - Allowed Logout URLs
-    - `デプロイ先のURL`
+    - `デプロイ先のURL/`
   - Allowed Web Origins
-    - `デプロイ先の URL/`
-- Deploy から、Manual deploy の中の Deploy Branch ボタンをクリック
+    - `デプロイ先のURL/`
+
+- Heroku の設定
+  - Deploy から、Manual deploy の中の Deploy Branch ボタンをクリック
+  - More > Run console > `yarn seed` と入力して seeding を実行
 - デプロイ完了
 
 <br>
