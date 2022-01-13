@@ -65,7 +65,7 @@ yarn start
 
 
 # ビルドファイル作成
-yan build
+yarn build
 
 
 # 本番環境でのマイグレーション実行
