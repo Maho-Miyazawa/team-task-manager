@@ -256,11 +256,11 @@ npm run react # Reactを起動
     - tasksSeeding
 - GitHub 上の自分のローカルリポジトリに、今回 clone した team-task-manager リポジトリを追加
 - Heroku を立ち上げ、GitHub と連携し、パイプラインを作成
-- Resources の Add-ons に、Heroku Postgres を選択
-- Setting の Config Vars に、環境変数の設定
-  - `PGSSLMODE=no-verify`
-  - `REACT_APP_AUTH_CLIENT_ID=Auth0のドメイン(envファイルの設定と同じ)`
-  - `REACT_APP_AUTH_DOMAIN=Auth0のクライアントID(envファイルの設定と同じ)`
+  - Resources の Add-ons に、Heroku Postgres を選択
+  - Setting の Config Vars に、環境変数の設定
+    - `PGSSLMODE=no-verify`
+    - `REACT_APP_AUTH_CLIENT_ID=Auth0のドメイン(envファイルの設定と同じ)`
+    - `REACT_APP_AUTH_DOMAIN=Auth0のクライアントID(envファイルの設定と同じ)`
 - Heroku で react-router を使用するための設定
 
   - Heroku CLI を設定していない場合は、[こちら](https://devcenter.heroku.com/ja/articles/heroku-cli)を参考に設定
@@ -282,7 +282,7 @@ npm run react # Reactを起動
   - Allowed Web Origins
     - `デプロイ先のURL/`
 
-- Heroku の設定
+- Heroku でデプロイ
   - Deploy から、Manual deploy の中の Deploy Branch ボタンをクリック
   - More > Run console > `yarn seed` と入力して seeding を実行
 - デプロイ完了
